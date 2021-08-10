@@ -38,9 +38,10 @@ Route::group([
     // 'namespace' => 'Admin',
     'middleware' => ['auth', 'admin']
 ], function () {
-    Route::get('', function () {
-        return View('admin.dashboard');
-    })->name('home');
+    Route::get(
+        '',
+        [Controller::class, 'index']
+    )->name('home');
 
     Route::resource('offer', Controller::class);
 });
