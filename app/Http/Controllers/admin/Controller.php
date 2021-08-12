@@ -5,9 +5,6 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller as HttpController;
 use App\Models\offer;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\View\View;
 
 class Controller extends HttpController
 {
@@ -16,78 +13,34 @@ class Controller extends HttpController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function dashboard()
     {
-        $users = new User();
-
-        return View('admin.dashboard', [
-            'users' => $users->all()
+        return view('admin.dashboard', [
+            'stats' => offer::StatsAdmin(),
+            'offers' => offer::OffersDashboard()
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function addOffer()
     {
-        //
+        return view('admin.AddOffer');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function showUsers()
     {
-        //
+        return view('admin.Users', ['users' => User::all()]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function viewUsers()
     {
-        //
+        return view('admin.viewUsers');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function viewOffer(int $id)
     {
-        //
-    }
+        $offer = offer::where('id', $id)->get();
+        $offert = $offer->toArray();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return view('admin.viewOffer', ['offer' => $offert['0']]);
     }
 }

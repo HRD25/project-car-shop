@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\Controller;
+use App\Http\Controllers\homeController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
 
@@ -17,9 +18,7 @@ use Illuminate\View\View;
 
 Auth::routes();
 
-Route::get('/', function () {
-    return View('layouts.app');
-});
+Route::get('/', homeController::class);
 
 Route::group([
     'prefix' => 'user',
@@ -27,9 +26,7 @@ Route::group([
     // 'namespace' => 'User',
     'middleware' => ['auth']
 ], function () {
-    Route::get('/', function () {
-        return View('user.home');
-    })->name('home');
+    Route::get('/', function () {return View('user.home');})->name('home');
 });
 
 Route::group([
@@ -38,10 +35,9 @@ Route::group([
     // 'namespace' => 'Admin',
     'middleware' => ['auth', 'admin']
 ], function () {
-    Route::get(
-        '',
-        [Controller::class, 'index']
-    )->name('home');
-
-    Route::resource('offer', Controller::class);
+    Route::get('/dashboard',[Controller::class, 'dashboard'])->name('dashboard');
+    Route::get('/addoffer',[Controller::class,'addOffer'])->name('addoffer');
+    Route::get('/showusers', [Controller::class,'showUsers'])->name('showusers');
+    Route::get('/viewusers', [Controller::class,'viewUsers'])->name('viewusers');
+    Route::get('/offer/{id}', [Controller::class, 'viewOffer'])->name('offer');
 });
