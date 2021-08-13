@@ -43,6 +43,6 @@ class LoginController extends Controller
         if (auth()->user()->role == "admin") {
             return route('admin.dashboard');
         }
-        return route('user.home');
+        return "/";
     }
 }

@@ -12,6 +12,6 @@ class homeController extends Controller
         $offersSlider = $offer->all()->take(3);
         $offers = $offer->all();
 
-        return view('layouts.home', ['offersSlider' => $offersSlider,'offers'=>$offers]);
+        return view('user.home', ['offersSlider' => $offersSlider, 'offers' => $offers]);
     }
 }

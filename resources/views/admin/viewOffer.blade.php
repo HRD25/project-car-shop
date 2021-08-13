@@ -8,14 +8,15 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="img text-center">
-                            <img src="{{ $offer['photos'] }}" class="img-fluid">
+                            <img src="{{ $offer['photo'] }}" class="img-fluid">
                         </div>
                         <div class="text mt-4">
                             <h3 class="text-center">{{ $offer['carname'] }}</h3>
                             <h4 class="text-right">Cena: {{ $offer['price'] }} zł</h4>
                         </div>
-                        <div class="card-text">
-                            <table class="table">
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered ">
                                 <thead>
                                     <tr>
                                         <th scope="col">Carname</th>
@@ -28,15 +29,13 @@
                                 </thead>
                                 <tbody>
                                     <td>{{ $offer['carname'] }}</td>
-                                    <td>{{ $offer['carmodel'] }}</td>
-                                    <td>{{ $offer['bodytype'] }}</td>
+                                    <td>{{ $offer['id_carmodel'] }}</td>
+                                    <td>{{ $offer['id_bodytype'] }}</td>
                                     <td>{{ $offer['fueltype'] }}</td>
                                     <td>{{ $offer['course'] }}</td>
                                     <td>{{ $offer['yearproduction'] }}</td>
                                     </tr>
                                 </tbody>
-                            </table>
-                            <table class="table">
                                 <thead>
                                     <tr>
                                         <th scope="col">Vehiclestatus</th>
@@ -49,17 +48,15 @@
                                 </thead>
                                 <tbody>
                                     <td>{{ $offer['vehiclestatus'] }}</td>
-                                    <td>{{ $offer['engine'] }}</td>
+                                    <td>{{ $offer['id_engine'] }}</td>
                                     <td>{{ $offer['drive'] }}</td>
-                                    <td>{{ $offer['country'] }}</td>
+                                    <td>{{ $offer['id_country'] }}</td>
                                     <td>{{ $offer['steeringwheel'] }}</td>
                                     <td>{{ $offer['location'] }}</td>
                                     </tr>
                                 </tbody>
                             </table>
-
                         </div>
-
                         <div>
                             <a href="{{ url()->previous() }}">
                                 <button type="button" class="btn btn-outline-dark col-sm-3">Back

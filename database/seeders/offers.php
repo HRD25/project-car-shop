@@ -15,28 +15,51 @@ class offers extends Seeder
      */
     public function run()
     {
+
+        DB::table('countrys')->truncate();
+        DB::table('equipments')->truncate();
         DB::table('offers')->truncate();
+        DB::table('bodytypes')->truncate();
 
         $faker = Factory::create();
 
-        for ($i = 1; $i < 10; $i++) {
+
+        for ($i = 0; $i < 30; $i++) {
+            DB::table('countrys')->insert([
+                'name' => $faker->country
+            ]);
+        }
+
+        for ($i = 0; $i < 4; $i++) {
+            DB::table('bodytypes')->insert([
+                'name' => $faker->randomElement(['sedan', 'coupe', 'kombi', 'Suv'])
+            ]);
+        }
+
+        for ($i = 0; $i < 8; $i++) {
+            DB::table('equipments')->insert([
+                'name' => $faker->randomElement(['elektryczne-szyby', 'podgrzewane-siedzenie', 'poduszka-powietrzna', 'kamera-parkowania-tyl', 'skora', 'automatyczny-pilot', 'ABS', 'Controla trakcji pojazdu'])
+            ]);
+        }
+
+        for ($i = 0; $i < 10; $i++) {
             DB::table('offers')->insert([
                 'carname' => $faker->name,
-                'carmodel' => $faker->numberBetween(1, 8),
-                'bodytype' => $faker->name,
-                'fueltype' => $faker->randomElement(['lpg', 'on', 'pb']),
+                'id_carmodel' => $faker->numberBetween(1, 8),
+                'id_bodytype' => $faker->numberBetween(0, 4),
+                'fueltype' => $faker->randomElement(['Paliwo+lpg', 'Diesel', 'Paliwo']),
                 'course' => $faker->numberBetween(1000, 300000),
                 'yearproduction' => $faker->date(),
                 'vehiclestatus' => $faker->randomElement(['bezwypadkowy', 'wypadkowy', 'uszkodzony']),
-                'engine' => $faker->numberBetween(1, 5),
+                'id_engine' => $faker->numberBetween(1, 5),
                 'drive' => $faker->randomElement(['przod', 'tył', 'na 4']),
-                'country' => $faker->country,
-                'id_additionalequipment' => $faker->numberBetween(1, 10),
+                'id_country' => $faker->numberBetween(0, 30),
+                'id_additionalequipment' => $faker->numberBetween(0, 8),
                 'steeringwheel' => $faker->randomElement(['po lewej', 'po prawej']),
                 'location' => $faker->city,
                 'description' => $faker->text(300),
                 'price' => $faker->numberBetween(1000, 30000),
-                'photos' => $faker->imageUrl(),
+                'photo' => $faker->imageUrl(),
                 'id_user' => $faker->numberBetween(1, 5)
             ]);
         }

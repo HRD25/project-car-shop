@@ -26,7 +26,9 @@ Route::group([
     // 'namespace' => 'User',
     'middleware' => ['auth']
 ], function () {
-    Route::get('/', function () {return View('user.home');})->name('home');
+    Route::get('', function () {
+        return View('user.home');
+    })->name('home');
 });
 
 Route::group([
@@ -35,9 +37,10 @@ Route::group([
     // 'namespace' => 'Admin',
     'middleware' => ['auth', 'admin']
 ], function () {
-    Route::get('/dashboard',[Controller::class, 'dashboard'])->name('dashboard');
-    Route::get('/addoffer',[Controller::class,'addOffer'])->name('addoffer');
-    Route::get('/showusers', [Controller::class,'showUsers'])->name('showusers');
-    Route::get('/viewusers', [Controller::class,'viewUsers'])->name('viewusers');
+    Route::get('/dashboard', [Controller::class, 'dashboard'])->name('dashboard');
+    Route::get('/addoffer', [Controller::class, 'addOffer'])->name('addoffer');
+    Route::get('/showusers', [Controller::class, 'showUsers'])->name('showusers');
+    Route::get('/viewusers', [Controller::class, 'viewUsers'])->name('viewusers');
     Route::get('/offer/{id}', [Controller::class, 'viewOffer'])->name('offer');
+    Route::delete('/delete/offer/{id}', [Controller::class, 'deleteOffer'])->name('deleteOffer');
 });

@@ -38,9 +38,13 @@ class Controller extends HttpController
 
     public function viewOffer(int $id)
     {
-        $offer = offer::where('id', $id)->get();
-        $offert = $offer->toArray();
+        $offer = offer::where('id', $id)->get()->toArray();
+        return view('admin.viewOffer', ['offer' => $offer['0']]);
+    }
 
-        return view('admin.viewOffer', ['offer' => $offert['0']]);
+    public function deleteOffer(int $id)
+    {
+        offer::destroy($id);
+        return redirect()->route('admin.dashboard');
     }
 }

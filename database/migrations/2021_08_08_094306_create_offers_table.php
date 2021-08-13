@@ -16,21 +16,21 @@ class CreateOffersTable extends Migration
         Schema::create('offers', function (Blueprint $table) {
             $table->id();
             $table->string('carname'); //nazwa samochodu
-            $table->string('carmodel'); //model samochodu
-            $table->string('bodytype'); //rodzaj nadwozia
+            $table->integer('id_carmodel'); //model samochodu
+            $table->integer('id_bodytype'); //rodzaj nadwozia
             $table->string('fueltype'); //rodzaj paliwa
             $table->string('course'); //przebieg
             $table->date('yearproduction'); //rok produkcji
             $table->string('vehiclestatus'); //status pojazdu
-            $table->string('engine'); //silnik
+            $table->integer('id_engine'); //silnik
             $table->string('drive'); //napęd
-            $table->string('country'); //kraj pochodzenia
+            $table->integer('id_country'); //kraj pochodzenia
             $table->integer('id_additionalequipment'); //dodatkowe wyposazenie
             $table->string('steeringwheel'); //kierownica
             $table->string('location'); //lokalizacja
             $table->text('description'); //Opis
             $table->integer('price'); // cena
-            $table->string('photos'); //zdjecia
+            $table->string('photo'); //zdjecia
             $table->integer('id_user'); //id uzytkownika
             $table->timestamps();
         });
