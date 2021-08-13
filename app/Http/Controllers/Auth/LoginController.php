@@ -41,7 +41,7 @@ class LoginController extends Controller
     protected function redirectPath()
     {
         if (auth()->user()->role == "admin") {
-            return route('admin.home');
+            return route('admin.dashboard');
         }
         return route('user.home');
     }

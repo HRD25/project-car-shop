@@ -20,7 +20,7 @@ class Authenticate extends Middleware
         }
 
         if (Auth::user()->role == "admin") {
-            return route('admin.home');
+            return route('admin.dashboard');
         }
     }
 }
