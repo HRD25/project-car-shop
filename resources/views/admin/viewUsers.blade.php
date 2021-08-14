@@ -13,44 +13,40 @@
                             <table class="table table-responsive">
                                 <thead>
                                     <tr>
-                                        <th scope="col" class="text-center">Photo active</th>
-                                        <th scope="col" class="text-center">Photo</th>
-                                        <th scope="col" class="text-center">Photo</th>
-                                        <th scope="col" colspan="4" class="text-center">Options</th>
+                                        <th scope="col">Photo</th>
+                                        <th scope="col">Save</th>
+                                        <th scope="col">Delete</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        @foreach ($sliders as $slider)
-                                            <td>
-                                                <div class="form-check form-switch">
-                                                    <img src=" {{ $slider->photo1 }}" class="img-fluid"
-                                                        style="height: 80px;width:120px">
-                                                    <input class="form-check-input" type="checkbox" id="flexSwitch"
-                                                        {{ $slider->photo1 }}checked>
-                                                    <label class="form-check-label" for="flexSwitch"></label>
-                                                </div>
-
-                                            </td>
-
-                                            <td>
-                                                <div class="form-check form-switch">
-                                                    <img src=" {{ $slider->photo2 }}" class="img-fluid"
-                                                        style="height: 80px;width:120px">
-                                                    <input class="form-check-input" type="checkbox"
-                                                        id="flexSwitchCheckChecked" checked>
-                                                    <label class="form-check-label" for="flexSwitchCheckChecked"></label>
-                                                </div>
-                                            </td>
-
-                                            <td>
-                                                <div class="form-check form-switch">
-                                                    <img src=" {{ $slider->photo3 }}" class="img-fluid"
-                                                        style="height: 80px;width:120px">
-                                                    <input class="form-check-input" type="checkbox"
-                                                        id="flexSwitchCheckChecked" checked>
-                                                    <label class="form-check-label" for="flexSwitchCheckChecked"></label>
-                                                </div>
+                                    @foreach ($sliders as $slider)
+                                        <tr>
+                                            <form action="{{ route('admin.updateView', ['id' => $slider->id]) }}"
+                                                method="POST">
+                                                @method('PATCH')
+                                                @csrf
+                                                <td>
+                                                    <div class="form-check form-switch">
+                                                        <img src=" {{ $slider->photo }}" class="img-fluid"
+                                                            style="height: 80px;width:120px">
+                                                        <input class="form-check-input" type="checkbox"
+                                                            id="flexSwitchCheckChecked" name="SwitchStatus" value="on" @if ($slider->status == 'on') checked @endif>
+                                                        <label class="form-check-label" for="flexSwitch"></label>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <button type="submit" class="bg-white border-0 ">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                            fill="currentColor" class="bi bi-check-circle"
+                                                            viewBox="0 0 16 16">
+                                                            <path
+                                                                d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                                            <path
+                                                                d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
+                                                        </svg>
+                                                        Save
+                                                    </button>
+                                            </form>
                                             </td>
 
                                             <td>
@@ -58,7 +54,7 @@
                                                     method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button class="bg-white border-0 mr-3" type="submit"><svg
+                                                    <button class="bg-white border-0 " type="submit"><svg
                                                             xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                             fill="currentColor" class="bi bi-trash-fill"
                                                             viewBox="0 0 16 16">
@@ -69,22 +65,23 @@
                                                     </button>
                                                 </form>
                                             </td>
-                                        @endforeach
-                                        <table class="table table-responsive">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col" class="text-center">Photo active</th>
-                                                    <th scope="col" class="text-center">Photo</th>
-                                                    <th scope="col" class="text-center">Photo</th>
-                                                    <th scope="col" colspan="4" class="text-center">Options</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <td>
-                                                    FORMULARZ DODAJACY
-                                                </td>
-                                            </tbody>
-                                        </table>
+                                        </tr>
+                                    @endforeach
+                                    <table class="table table-responsive">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" class="text-center">Photo active</th>
+                                                <th scope="col" class="text-center">Photo</th>
+                                                <th scope="col" class="text-center">Photo</th>
+                                                <th scope="col" colspan="4" class="text-center">Options</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <td>
+                                                FORMULARZ DODAJACY
+                                            </td>
+                                        </tbody>
+                                    </table>
                                     </tr>
                                 </tbody>
                             </table>
@@ -97,14 +94,7 @@
                         <h4 class="card-header text-center bg-dark text-white">Admin</h4>
                         <div class="card-body">
                             <div class="text-center">
-                                <div class="custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                                    <label class="custom-control-label" for="customSwitch1">Day</label>
-                                </div>
-                                <div class="custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input" id="customSwitch2">
-                                    <label class="custom-control-label" for="customSwitch2">Day</label>
-                                </div>
+
                             </div>
                         </div>
                     </div>

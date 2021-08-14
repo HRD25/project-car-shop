@@ -15,9 +15,8 @@ class CreateViewhomeTable extends Migration
     {
         Schema::create('viewhome', function (Blueprint $table) {
             $table->id();
-            $table->string('photo1');
-            $table->string('photo2');
-            $table->string('photo3');
+            $table->string('photo');
+            $table->string('status')->default('off');
             $table->timestamps();
         });
     }

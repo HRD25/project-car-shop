@@ -3,28 +3,33 @@
 @section('content')
     <!-- Slider !-->
     <div class="container">
-        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators">
-                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-            </ol>
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                    aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                    aria-label="Slide 3"></button>
+            </div>
             <div class="carousel-inner">
-                @foreach ($offersSlider ?? '' as $offer)
-                    <div class="carousel-item {{ $offer->id == 1 ? 'active' : '' }}">
-                        <img class="img-fluid d-block " style="height: 350px;width:100%" src="{{ $offer->photo }}"
-                            alt="{{ $offer->id_carmodel }}">
+                @foreach ($Sliders as $slider)
+                    <div class="carousel-item {{ $slider->id == 1 ? 'active' : '' }}">
+                        <img class="img-fluid d-block " style="height: 350px;width:100%" src="{{ $slider->photo }}"
+                            alt="Photo car">
                     </div>
                 @endforeach
             </div>
-            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only"></span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only"></span>
-            </a>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
     </div>
     <!-- End slider !-->
@@ -35,8 +40,8 @@
             <form action="/" method="POST">
                 <div class="card-body bg-dark">
                     <div class="btn-group">
-                        <button class="btn btn-secondary btn-sm dropdown-toggle" id="button_animations" type="button" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
+                        <button class="btn btn-secondary btn-sm dropdown-toggle" id="button_animations" type="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Sprawdz
                         </button>
                         <div class="dropdown-menu">
@@ -58,20 +63,20 @@
             <h2 class="card-header text-center">Wyróznione</h2>
             <div class="row">
                 @foreach ($offers as $offer)
-                        <div class="card">
-                            <div class="card-body">
-                                <img class="img img-fluid" src="{{ $offer->photo }}" style="height: 150px">
-                                <h5 class="card-text text-center">{{ $offer->carname }}</h5>
-                                <p class="card-text text-right">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                        class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
-                                        <path
-                                            d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
-                                    </svg>
-                                    {{ $offer->location }}
-                                </p>
-                            </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <img class="img img-fluid" src="{{ $offer->photo }}" style="height: 150px">
+                            <h5 class="card-text text-center">{{ $offer->carname }}</h5>
+                            <p class="card-text text-right">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                                    <path
+                                        d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
+                                </svg>
+                                {{ $offer->location }}
+                            </p>
                         </div>
+                    </div>
                 @endforeach
             </div>
         </div>

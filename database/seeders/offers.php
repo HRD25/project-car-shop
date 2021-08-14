@@ -25,13 +25,11 @@ class offers extends Seeder
 
         $faker = Factory::create();
 
-
-        DB::table('viewhome')->insert([
-            'photo1' => $faker->imageUrl(),
-            'photo2' => $faker->imageUrl(),
-            'photo3' => $faker->imageUrl()
-        ]);
-
+        for ($i = 0; $i < 5; $i++) {
+            DB::table('viewhome')->insert([
+                'photo' => $faker->imageUrl(),
+            ]);
+        }
 
         for ($i = 0; $i < 30; $i++) {
             DB::table('countrys')->insert([

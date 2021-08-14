@@ -44,4 +44,5 @@ Route::group([
     Route::get('/offer/{id}', [Controller::class, 'viewOffer'])->name('offer');
     Route::delete('/delete/offer/{id}', [Controller::class, 'deleteOffer'])->name('deleteOffer');
     Route::get('/edit/offer/{id}', [Controller::class, 'editOffer'])->name('editOffer');
+    Route::patch('/save/viewuser/{id}', [Controller::class, 'updateView'])->name('updateView');
 });

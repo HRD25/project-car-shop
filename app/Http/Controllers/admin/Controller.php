@@ -7,6 +7,7 @@ use App\Models\bodytype;
 use App\Models\offer;
 use App\Models\User;
 use App\Models\viewhome;
+use Illuminate\Http\Request;
 
 class Controller extends HttpController
 {
@@ -27,6 +28,20 @@ class Controller extends HttpController
             'stats' => $this->offer->StatsAdmin(),
             'offers' => $this->offer->OffersDashboard()
         ]);
+    }
+
+    public function updateView(int $id, Request $req)
+    {
+        if ($req->SwitchStatus == null) {
+            $switch = 'off';
+        } else {
+            $switch = 'on';
+        }
+
+        $this->slider->where('id', $id)->update([
+            'status' => $switch
+        ]);
+        return redirect()->route('admin.viewusers');
     }
 
     public function addOffer()

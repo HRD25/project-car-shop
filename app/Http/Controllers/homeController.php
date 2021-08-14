@@ -3,15 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\offer;
-use Illuminate\Http\Request;
+use App\Models\viewhome;
 
 class homeController extends Controller
 {
-    public function __invoke(offer $offer)
+    public function __invoke(offer $offer, viewhome $viewslider)
     {
-        $offersSlider = $offer->all()->take(3);
+        $Sliders = $viewslider->where('status', 'on')->get()->take(3);
         $offers = $offer->all();
 
-        return view('user.home', ['offersSlider' => $offersSlider, 'offers' => $offers]);
+        return view('user.home', ['Sliders' => $Sliders, 'offers' => $offers]);
     }
 }
