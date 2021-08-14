@@ -2,10 +2,32 @@
 
 namespace App\Models;
 
+use App\Models\country;
+use App\Models\bodytype;
 use Illuminate\Database\Eloquent\Model;
 
 class offer extends Model
 {
+    public function bodytypes()
+    {
+        return $this->hasOne(bodytype::class, 'id', 'id_bodytype');
+    }
+
+    public function countrys()
+    {
+        return $this->hasOne(country::class, 'id', 'id_country');
+    }
+
+    public function equipments()
+    {
+        return $this->hasOne(equipment::class, 'id', 'id_additionalequipment');
+    }
+
+    // public function carmodels()
+    // {
+    //     return $this->hasMany('bodytype');
+    // }
+
     public function scopeStatsAdmin()
     {
         return [
@@ -18,6 +40,6 @@ class offer extends Model
 
     public function scopeOffersDashboard()
     {
-        return offer::select('id', 'carname', 'photo', 'price', 'id_user', 'location')->get();
+        return offer::with('bodytypes')->get();
     }
 }

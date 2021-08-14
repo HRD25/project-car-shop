@@ -11,36 +11,37 @@
                             <img src="{{ $offer->photo }}" class="img-fluid">
                         </div>
                         <div class="text mt-3">
-                            <h3 class="text-center"><b>{{ $offer->carname }}</b></h3>
-                            <h4 class="text-right">Price: <b>{{ $offer->price }}</b> zł </h4>
+                            <h3 class="text-center">
+                                Title: <b><input type="text" value="{{ $offer->carname }}"></b>
+                            </h3>
+                            <h4 class="text-right">
+                                Price:
+                                <input type="text" value="{{ $offer->price }}"> zł
+                            </h4>
                             <hr class="mt-2 mb-2">
                             <div>
                                 <div class="d-flex flex-row">
                                     <div class="p-2">
                                         <ul class="list-group">
                                             <li class="list-group-item">
-                                                <b>Fueltype:</b> {{ $offer->fueltype }}
+                                                <b>Fueltype:</b>
+                                                <input type="text" value="{{ $offer->fueltype }}">
                                             </li>
                                         </ul>
                                     </div>
                                     <div class="p-2">
                                         <ul class="list-group">
                                             <li class="list-group-item">
-                                                <b>Course:</b> {{ $offer->course }} km
+                                                <b>Course:</b>
+                                                <input type="text" value="{{ $offer->course }}"> km
                                             </li>
                                         </ul>
                                     </div>
                                     <div class="p-2">
                                         <ul class="list-group">
                                             <li class="list-group-item">
-                                                <b>Yearproduction:</b> {{ $offer->yearproduction }}
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="p-2">
-                                        <ul class="list-group">
-                                            <li class="list-group-item">
-                                                <b>Vehiclestatus:</b> {{ $offer->vehiclestatus }}
+                                                <b>Yearproduction:</b>
+                                                <input type="text" value="{{ $offer->yearproduction }}">
                                             </li>
                                         </ul>
                                     </div>
@@ -50,7 +51,16 @@
                                     <div class="p-2">
                                         <ul class="list-group">
                                             <li class="list-group-item">
-                                                <b>Steeringwheel:</b> {{ $offer->steeringwheel }}
+                                                <b>Steeringwheel:</b><input type="text"
+                                                    value="{{ $offer->steeringwheel }}">
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="p-2">
+                                        <ul class="list-group">
+                                            <li class="list-group-item">
+                                                <b>Vehiclestatus:</b>
+                                                <input type="text" value="{{ $offer->vehiclestatus }}">
                                             </li>
                                         </ul>
                                     </div>
@@ -75,7 +85,8 @@
                     <div class="card-body">
                         <h3 class="text-center"><b>Description</b></h3>
                         <hr class="mt-1">
-                        <h5 class="card-text">{{ $offer->description }}</h5>
+                        <h5 class="card-text text-center"><textarea type="text" rows="auto" cols="auto"
+                                class="responsive">{{ $offer->description }}</textarea></h5>
                         <h3 class="text-center mt-4"><b>Information to Car</b></h3>
                         <hr class="mt-1">
                         <div class="table-responsive mt-3">
@@ -92,12 +103,12 @@
                                 </thead>
                                 <tbody>
 
-                                    <td>{{ $offer->carname }}</td>
-                                    <td>{{ $offer->id_carmodel }}</td>
-                                    <td>{{ $offer->bodytypes->name }}</td>
-                                    <td>{{ $offer->fueltype }}</td>
-                                    <td>{{ $offer->course }}</td>
-                                    <td>{{ $offer->yearproduction }}</td>
+                                    <td><input type="text" value="{{ $offer->carname }}"></td>
+                                    <td><input type="text" value="{{ $offer->id_carmodel }}"></td>
+                                    <td><input type="text" value="{{ $offer->bodytypes->name }}"></td>
+                                    <td><input type="text" value="{{ $offer->fueltype }}"></td>
+                                    <td><input type="text" value="{{ $offer->course }}"></td>
+                                    <td><input type="text" value="{{ $offer->yearproduction }}"></td>
                                     </tr>
                                 </tbody>
                                 <thead>
@@ -111,12 +122,12 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <td>{{ $offer->vehiclestatus }}</td>
-                                    <td>{{ $offer->id_engine }}</td>
-                                    <td>{{ $offer->drive }}</td>
-                                    <td>{{ $offer->countrys->name }}</td>
-                                    <td>{{ $offer->steeringwheel }}</td>
-                                    <td>{{ $offer->location }}</td>
+                                    <td><input type="text" value="{{ $offer->vehiclestatus }}"></td>
+                                    <td><input type="text" value="{{ $offer->id_engine }}"></td>
+                                    <td><input type="text" value="{{ $offer->drive }}"></td>
+                                    <td><input type="text" value="{{ $offer->countrys->name }}"></td>
+                                    <td><input type="text" value="{{ $offer->steeringwheel }}"></td>
+                                    <td><input type="text" value="{{ $offer->location }}"></td>
                                     </tr>
                                 </tbody>
                                 <thead>
@@ -125,8 +136,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <td>{{ $offer->equipments->name }}</td>
-                                    </tr>
+                                    <td><input type="text" value="{{ $offer->equipments->name }}"></td>
                                 </tbody>
                             </table>
                         </div>

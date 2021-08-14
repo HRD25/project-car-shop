@@ -43,4 +43,5 @@ Route::group([
     Route::get('/viewusers', [Controller::class, 'viewUsers'])->name('viewusers');
     Route::get('/offer/{id}', [Controller::class, 'viewOffer'])->name('offer');
     Route::delete('/delete/offer/{id}', [Controller::class, 'deleteOffer'])->name('deleteOffer');
+    Route::get('/edit/offer/{id}', [Controller::class, 'editOffer'])->name('editOffer');
 });

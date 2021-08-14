@@ -10,7 +10,7 @@
                 <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
             </ol>
             <div class="carousel-inner">
-                @foreach ($offersSlider as $offer)
+                @foreach ($offersSlider ?? '' as $offer)
                     <div class="carousel-item {{ $offer->id == 1 ? 'active' : '' }}">
                         <img class="img-fluid d-block " style="height: 350px;width:100%" src="{{ $offer->photo }}"
                             alt="{{ $offer->id_carmodel }}">
@@ -35,7 +35,7 @@
             <form action="/" method="POST">
                 <div class="card-body bg-dark">
                     <div class="btn-group">
-                        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown"
+                        <button class="btn btn-secondary btn-sm dropdown-toggle" id="button_animations" type="button" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
                             Sprawdz
                         </button>
@@ -58,20 +58,20 @@
             <h2 class="card-header text-center">Wyróznione</h2>
             <div class="row">
                 @foreach ($offers as $offer)
-                    <div class="col-sm-3">
                         <div class="card">
                             <div class="card-body">
                                 <img class="img img-fluid" src="{{ $offer->photo }}" style="height: 150px">
                                 <h5 class="card-text text-center">{{ $offer->carname }}</h5>
                                 <p class="card-text text-right">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
-                                        <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
-                                      </svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                                        <path
+                                            d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
+                                    </svg>
                                     {{ $offer->location }}
                                 </p>
                             </div>
                         </div>
-                    </div>
                 @endforeach
             </div>
         </div>

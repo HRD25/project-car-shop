@@ -1,7 +1,7 @@
 @extends('admin.home')
 
 @section('content')
-    <div class="card text-center">
+    <div class="card text-center mt-3">
         <div class="table-responsive">
             <table class="table">
                 <thead class="thead-dark">

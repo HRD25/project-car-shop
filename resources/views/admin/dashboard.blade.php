@@ -152,7 +152,8 @@
                                                         </a>
                                                 </td>
                                                 <td>
-                                                    <a href="#" style="color: black" class="mr-1"><svg
+                                                    <a href="{{ route('admin.editOffer', ['id' => $offer->id]) }}"
+                                                        style="color: black" class="mr-1"><svg
                                                             xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                             fill="currentColor" class="bi bi-vector-pen"
                                                             viewBox="0 0 16 16">

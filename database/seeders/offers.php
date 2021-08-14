@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Carbon\Carbon;
 use Faker\Factory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -20,8 +21,16 @@ class offers extends Seeder
         DB::table('equipments')->truncate();
         DB::table('offers')->truncate();
         DB::table('bodytypes')->truncate();
+        DB::table('viewhome')->truncate();
 
         $faker = Factory::create();
+
+
+        DB::table('viewhome')->insert([
+            'photo1' => $faker->imageUrl(),
+            'photo2' => $faker->imageUrl(),
+            'photo3' => $faker->imageUrl()
+        ]);
 
 
         for ($i = 0; $i < 30; $i++) {
@@ -60,7 +69,9 @@ class offers extends Seeder
                 'description' => $faker->text(300),
                 'price' => $faker->numberBetween(1000, 30000),
                 'photo' => $faker->imageUrl(),
-                'id_user' => $faker->numberBetween(1, 5)
+                'id_user' => $faker->numberBetween(1, 5),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ]);
         }
     }
