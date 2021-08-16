@@ -27,7 +27,7 @@ class offers extends Seeder
 
         for ($i = 0; $i < 5; $i++) {
             DB::table('viewhome')->insert([
-                'photo' => $faker->imageUrl(),
+                'photo' => $faker->imageUrl()
             ]);
         }
 
@@ -53,15 +53,15 @@ class offers extends Seeder
             DB::table('offers')->insert([
                 'carname' => $faker->name,
                 'id_carmodel' => $faker->numberBetween(1, 8),
-                'id_bodytype' => $faker->numberBetween(0, 4),
+                'id_bodytype' => $faker->numberBetween(1, 4),
                 'fueltype' => $faker->randomElement(['Paliwo+lpg', 'Diesel', 'Paliwo']),
                 'course' => $faker->numberBetween(1000, 300000),
                 'yearproduction' => $faker->date(),
                 'vehiclestatus' => $faker->randomElement(['bezwypadkowy', 'wypadkowy', 'uszkodzony']),
                 'id_engine' => $faker->numberBetween(1, 5),
                 'drive' => $faker->randomElement(['przod', 'tył', 'na 4']),
-                'id_country' => $faker->numberBetween(0, 30),
-                'id_additionalequipment' => $faker->numberBetween(0, 8),
+                'id_country' => $faker->numberBetween(1, 30),
+                'id_additionalequipment' => $faker->numberBetween(1, 8),
                 'steeringwheel' => $faker->randomElement(['po lewej', 'po prawej']),
                 'location' => $faker->city,
                 'description' => $faker->text(300),

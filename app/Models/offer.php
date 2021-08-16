@@ -40,6 +40,11 @@ class offer extends Model
 
     public function scopeOffersDashboard()
     {
-        return offer::with('bodytypes')->get();
+        return offer::get();
+    }
+
+    public function scopeShowOffer($builder, int $id)
+    {
+        return offer::where('id', '=', $id)->with('bodytypes', 'countrys')->get();
     }
 }

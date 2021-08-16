@@ -18,7 +18,7 @@ use Illuminate\View\View;
 
 Auth::routes();
 
-Route::get('/', homeController::class);
+Route::get('/', homeController::class)->name('home');
 
 Route::group([
     'prefix' => 'user',
@@ -26,9 +26,7 @@ Route::group([
     // 'namespace' => 'User',
     'middleware' => ['auth']
 ], function () {
-    Route::get('', function () {
-        return View('user.home');
-    })->name('home');
+
 });
 
 Route::group([
@@ -45,4 +43,5 @@ Route::group([
     Route::delete('/delete/offer/{id}', [Controller::class, 'deleteOffer'])->name('deleteOffer');
     Route::get('/edit/offer/{id}', [Controller::class, 'editOffer'])->name('editOffer');
     Route::patch('/save/viewuser/{id}', [Controller::class, 'updateView'])->name('updateView');
+    Route::delete('/delete/viewuser/{id}',[Controller::class,'deleteViewUser'])->name('deleteViewUser');
 });

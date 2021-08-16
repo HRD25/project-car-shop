@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller as HttpController;
-use App\Models\bodytype;
 use App\Models\offer;
 use App\Models\User;
 use App\Models\viewhome;
@@ -32,14 +31,26 @@ class Controller extends HttpController
 
     public function updateView(int $id, Request $req)
     {
-        if ($req->SwitchStatus == null) {
-            $switch = 'off';
+        $switch = 'off';
+        if ($req->SwitchActive == null) {
+            $action = 'off';
         } else {
-            $switch = 'on';
+            $action = $req->SwitchActive;
+            if (!empty($req->Switch1)) {
+                $switch = $req->Switch1;
+            } else if (!empty($req->Switch2)) {
+                $switch = $req->Switch2;
+            } else if (!empty($req->Switch3)) {
+                $switch = $req->Switch3;
+            }
+            if ($req->Switch1 != null && $req->Switch2 != null || $req->Switch1 != null && $req->Switch3 != null || $req->Switch2 != null && $req->Switch3 != null) {
+                $switch = 'off';
+            }
         }
 
         $this->slider->where('id', $id)->update([
-            'status' => $switch
+            'status' => $switch,
+            'active' => $action
         ]);
         return redirect()->route('admin.viewusers');
     }
@@ -66,12 +77,18 @@ class Controller extends HttpController
 
     public function viewOffer(int $id)
     {
-        return view('admin.viewOffer', ['offer' => $this->offer->where('id', $id)->with('bodytypes', 'countrys')->first()]);
+        return view('admin.viewOffer', ['offers' => $this->offer->ShowOffer($id)]);
     }
 
     public function deleteOffer(int $id)
     {
         $this->offer->destroy($id);
         return redirect()->route('admin.dashboard');
+    }
+
+    public function deleteViewUser(int $id)
+    {
+        $this->slider->destroy($id);
+        return redirect()->route('admin.viewusers');
     }
 }

@@ -9,7 +9,7 @@ class homeController extends Controller
 {
     public function __invoke(offer $offer, viewhome $viewslider)
     {
-        $Sliders = $viewslider->where('status', 'on')->get()->take(3);
+        $Sliders = $viewslider->where('active', 'on')->get()->take(3);
         $offers = $offer->all();
 
         return view('user.home', ['Sliders' => $Sliders, 'offers' => $offers]);
