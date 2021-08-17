@@ -58,6 +58,9 @@
                                     </li>
                                 @endif
                             @else
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('user.showfavorites') }}">Favorite</a>
+                                </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink"
                                         role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -66,8 +69,9 @@
                                     <ul class="dropdown-menu dropdown-menu-dark"
                                         aria-labelledby="navbarDarkDropdownMenuLink">
                                         <li>
-                                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                                        document.getElementById('logout-form').submit();">
+                                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                                onclick="event.preventDefault();
+                                                                            document.getElementById('logout-form').submit();">
                                                 {{ __('Logout') }}</a>
                                             <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                                 class="d-none">

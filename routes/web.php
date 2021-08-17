@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\admin\Controller;
 use App\Http\Controllers\homeController;
+use App\Http\Controllers\user\Controller as UserController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\View\View;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +18,8 @@ use Illuminate\View\View;
 
 Auth::routes();
 
-Route::get('/', homeController::class)->name('home');
+Route::get('/', [homeController::class, 'home'])->name('home');
+Route::get('/Offer/{id}', [homeController::class, 'ShowOffer'])->name('ShowOffer');
 
 Route::group([
     'prefix' => 'user',
@@ -26,7 +27,9 @@ Route::group([
     // 'namespace' => 'User',
     'middleware' => ['auth']
 ], function () {
-
+    Route::post('/favorite/add/offert/{id}', [UserController::class, 'addfavorite'])->name('addfavorite');
+    Route::delete('/favorite/offert/{id}', [UserController::class, 'deletefavorite'])->name('deletefavorite');
+    Route::get('/favorites', [UserController::class, 'showfavorites'])->name('showfavorites');
 });
 
 Route::group([
@@ -43,5 +46,6 @@ Route::group([
     Route::delete('/delete/offer/{id}', [Controller::class, 'deleteOffer'])->name('deleteOffer');
     Route::get('/edit/offer/{id}', [Controller::class, 'editOffer'])->name('editOffer');
     Route::patch('/save/viewuser/{id}', [Controller::class, 'updateView'])->name('updateView');
-    Route::delete('/delete/viewuser/{id}',[Controller::class,'deleteViewUser'])->name('deleteViewUser');
+    Route::delete('/delete/viewuser/{id}', [Controller::class, 'deleteViewUser'])->name('deleteViewUser');
+    Route::post('/addViewUser', [Controller::class, 'addViewUser'])->name('addViewUser');
 });

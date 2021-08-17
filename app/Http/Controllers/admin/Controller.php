@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller as HttpController;
 use App\Models\offer;
 use App\Models\User;
 use App\Models\viewhome;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class Controller extends HttpController
 {
@@ -84,6 +86,20 @@ class Controller extends HttpController
     {
         $this->offer->destroy($id);
         return redirect()->route('admin.dashboard');
+    }
+
+    public function addViewUser(Request $req)
+    {
+        if (Storage::disk('local')->exists($req->photo)) {
+            Storage::disk('lcoal')->delete($req->photo);
+        }
+
+        $this->slider->insert([
+            'photo' => $req->photo->store('slider', 'public'),
+            'created_at' => Carbon::now()
+        ]);
+
+        return redirect()->route('admin.addViewUser');
     }
 
     public function deleteViewUser(int $id)

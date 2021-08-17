@@ -30,9 +30,10 @@
                                                 method="POST">
                                                 @method('PATCH')
                                                 @csrf
-
                                                 <td class="text-center">
-                                                    <img src=" {{ $slider->photo }}" class="img-fluid rounded-pill"
+                                                    {{-- <img src="{{ asset('storage/' . $slider->photo) }}"
+                                                        class="img-fluid rounded-pill" style="height: 50px;width:100px"> --}}
+                                                    <img src="{{ $slider->photo }}" class="img-fluid rounded-pill"
                                                         style="height: 50px;width:100px">
                                                 </td>
                                                 <td>
@@ -139,7 +140,9 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <form action="" method="POST" enctype="multipart/form-data">
+                                        <form action="{{ route('admin.addViewUser') }}" method="POST"
+                                            enctype="multipart/form-data">
+                                            @csrf
                                             <td>
                                                 <input type="file" name="photo" />
                                             </td>

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class offer extends Model
 {
+    // Related
     public function bodytypes()
     {
         return $this->hasOne(bodytype::class, 'id', 'id_bodytype');
@@ -23,11 +24,13 @@ class offer extends Model
         return $this->hasOne(equipment::class, 'id', 'id_additionalequipment');
     }
 
-    // public function carmodels()
-    // {
-    //     return $this->hasMany('bodytype');
-    // }
+    public function favorites()
+    {
+        return $this->hasOne(favorite::class,'id_offer','id');
+    }
 
+
+    // Scope
     public function scopeStatsAdmin()
     {
         return [
