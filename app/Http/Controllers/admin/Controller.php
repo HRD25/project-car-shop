@@ -69,7 +69,12 @@ class Controller extends HttpController
 
     public function showUsers()
     {
-        return view('admin.Users', ['users' => $this->user->all()]);
+        return view('admin.Users', ['users' => $this->user->where('role', '!=', 'admin')->get()]);
+    }
+
+    public function showuser(int $id)
+    {
+        return view('admin.User', ['user' => $this->user->where('id', $id)->get()->first()]);
     }
 
     public function viewUsers()

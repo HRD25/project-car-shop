@@ -4,44 +4,43 @@
     <div class="container-fluid">
         <div class="row">
             @foreach ($offers as $offer)
-                <div class="col-sm-2"></div>
-                <div class="col-sm-8">
-                    <div class="card">
-                        <div class="card-body">
-
-                            <div class="img text-center">
-                                <img src="{{ $offer->photo }}" class="img-fluid">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-6 ">
+                    <div class="card border border-dark">
+                        <div class="card-body p-0">
+                            <div class="container-fluid text-center p-0">
+                                <img src="{{ $offer->photo }}" class="img-fluid" style="width: 100%">
                             </div>
                             <div class="text mt-3">
-                                <h3 class="text-center"><b>{{ $offer->carname }}</b></h3>
-                                <h4 class="text-end">Price: <b>{{ $offer->price }}</b> zł </h4>
-                                <hr class="mt-2 mb-2">
+                                <h2 class="text-center"><b>{{ $offer->carname }}</b></h2>
+                                <h3 class="text-end mb-0">Price: <b>{{ $offer->price }}</b> zł</h3>
+                                <hr class="mt-0 mb-2">
                                 <div>
                                     <div class="d-flex flex-row">
-                                        <div class="p-2">
+                                        <div class="p-1">
                                             <ul class="list-group">
-                                                <li class="list-group-item">
+                                                <li class="list-group-item p-0">
                                                     <b>Fueltype:</b> {{ $offer->fueltype }}
                                                 </li>
                                             </ul>
                                         </div>
-                                        <div class="p-2">
+                                        <div class="p-1">
                                             <ul class="list-group">
-                                                <li class="list-group-item">
+                                                <li class="list-group-item p-0">
                                                     <b>Course:</b> {{ $offer->course }} km
                                                 </li>
                                             </ul>
                                         </div>
-                                        <div class="p-2">
+                                        <div class="p-1">
                                             <ul class="list-group">
-                                                <li class="list-group-item">
+                                                <li class="list-group-item p-0">
                                                     <b>Yearproduction:</b> {{ $offer->yearproduction }}
                                                 </li>
                                             </ul>
                                         </div>
-                                        <div class="p-2">
+                                        <div class="p-1">
                                             <ul class="list-group">
-                                                <li class="list-group-item">
+                                                <li class="list-group-item p-0">
                                                     <b>Vehiclestatus:</b> {{ $offer->vehiclestatus }}
                                                 </li>
                                             </ul>
@@ -49,9 +48,9 @@
                                     </div>
 
                                     <div class="d-flex flex-row">
-                                        <div class="p-2">
+                                        <div class="p-1">
                                             <ul class="list-group">
-                                                <li class="list-group-item">
+                                                <li class="list-group-item p-0">
                                                     <b>Steeringwheel:</b> {{ $offer->steeringwheel }}
                                                 </li>
                                             </ul>
@@ -65,15 +64,15 @@
                             </div>
 
                             <div class="mt-3">
-                                <a href="{{ url()->previous() }}">
-                                    <button type="button" class="btn btn-outline-dark col-sm-3">Back
+                                <a href="{{ route('home') }}">
+                                    <button type="button" class="btn btn-sm btn-dark col-sm-5">Back
                                     </button>
                                 </a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="card mt-3">
+                    <div class="card mt-3 border border-dark">
                         <div class="card-body">
                             <h3 class="text-center"><b>Description</b></h3>
                             <hr class="mt-1">
@@ -134,7 +133,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-4"></div>
+                <div class="col-sm-3"></div>
             @endforeach
         </div>
     </div>

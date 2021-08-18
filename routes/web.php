@@ -30,6 +30,8 @@ Route::group([
     Route::post('/favorite/add/offert/{id}', [UserController::class, 'addfavorite'])->name('addfavorite');
     Route::delete('/favorite/offert/{id}', [UserController::class, 'deletefavorite'])->name('deletefavorite');
     Route::get('/favorites', [UserController::class, 'showfavorites'])->name('showfavorites');
+    Route::get('/settings/user/{id}', [UserController::class, 'settingsuser'])->name('settingsuser');
+    Route::patch('/settings/change/user/{id}', [UserController::class, 'settingschange'])->name('settingschange');
 });
 
 Route::group([
@@ -48,4 +50,5 @@ Route::group([
     Route::patch('/save/viewuser/{id}', [Controller::class, 'updateView'])->name('updateView');
     Route::delete('/delete/viewuser/{id}', [Controller::class, 'deleteViewUser'])->name('deleteViewUser');
     Route::post('/addViewUser', [Controller::class, 'addViewUser'])->name('addViewUser');
+    Route::get('/showusers/user/{id}', [Controller::class, 'showuser'])->name('showuser');
 });

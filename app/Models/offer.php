@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\country;
 use App\Models\bodytype;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class offer extends Model
@@ -26,7 +27,7 @@ class offer extends Model
 
     public function favorites()
     {
-        return $this->hasOne(favorite::class,'id_offer','id');
+        return $this->hasOne(favorite::class, 'id_offer', 'id');
     }
 
 
@@ -35,8 +36,7 @@ class offer extends Model
     {
         return [
             'Offers' => offer::all()->count(),
-            'Users' => User::where('role', 'user')->get()->count(),
-            'Sold' => '23400',
+            'Users' => User::where('role', '!=', 'admin')->get()->count(),
             'Sellers' => User::where('role', 'seller')->get()->count()
         ];;
     }
@@ -46,8 +46,8 @@ class offer extends Model
         return offer::get();
     }
 
-    public function scopeShowOffer($builder, int $id)
+    public function scopeShowOffer(Builder $builder, int $id)
     {
-        return offer::where('id', '=', $id)->with('bodytypes', 'countrys')->get();
+        return offer::where('id', $id)->with('bodytypes', 'countrys')->get();
     }
 }
