@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class equipment extends Model
@@ -11,6 +10,6 @@ class equipment extends Model
 
     public function offers()
     {
-        return $this->belongsTo(offer::class, 'id_additionalequipment', 'id');
+        return $this->belongsTo(offer::class, 'id_equipment', 'id');
     }
 }

@@ -6,7 +6,7 @@
             @foreach ($offers as $offer)
                 <div class="col-sm-3"></div>
                 <div class="col-sm-6">
-                    <div class="card">
+                    <div class="card border border-dark">
                         <div class="card-body p-0">
                             <div class="container-fluid text-center p-0">
                                 <img src="{{ $offer->photo }}" class="img-fluid" style="width: 100%">
@@ -20,7 +20,7 @@
                                         <div class="p-1">
                                             <ul class="list-group">
                                                 <li class="list-group-item p-0">
-                                                    <b>Fueltype:</b> {{ $offer->fueltype }}
+                                                    <b>Fueltype:</b> {{ $offer->fueltypes->name }}
                                                 </li>
                                             </ul>
                                         </div>
@@ -41,7 +41,7 @@
                                         <div class="p-1">
                                             <ul class="list-group">
                                                 <li class="list-group-item p-0">
-                                                    <b>Vehiclestatus:</b> {{ $offer->vehiclestatus }}
+                                                    <b>Vehiclestatus:</b> {{ $offer->vehiclestatus->name }}
                                                 </li>
                                             </ul>
                                         </div>
@@ -51,7 +51,7 @@
                                         <div class="p-1">
                                             <ul class="list-group">
                                                 <li class="list-group-item p-0">
-                                                    <b>Steeringwheel:</b> {{ $offer->steeringwheel }}
+                                                    <b>Steeringwheel:</b> {{ $offer->steeringwheels->name }}
                                                 </li>
                                             </ul>
                                         </div>
@@ -72,7 +72,7 @@
                         </div>
                     </div>
 
-                    <div class="card mt-3">
+                    <div class="card border border-dark mt-3">
                         <div class="card-body">
                             <h3 class="text-center"><b>Description</b></h3>
                             <hr class="mt-1">
@@ -93,9 +93,9 @@
                                     </thead>
                                     <tbody>
                                         <td>{{ $offer->carname }}</td>
-                                        <td>{{ $offer->id_carmodel }}</td>
+                                        <td>{{ $offer->carmodels->name }}</td>
                                         <td>{{ $offer->bodytypes->name }}</td>
-                                        <td>{{ $offer->fueltype }}</td>
+                                        <td>{{ $offer->fueltypes->name }}</td>
                                         <td>{{ $offer->course }}</td>
                                         <td>{{ $offer->yearproduction }}</td>
                                         </tr>
@@ -111,11 +111,11 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <td>{{ $offer->vehiclestatus }}</td>
-                                        <td>{{ $offer->id_engine }}</td>
+                                        <td>{{ $offer->vehiclestatus->name }}</td>
+                                        <td>{{ $offer->engines->name }}</td>
                                         <td>{{ $offer->drive }}</td>
                                         <td>{{ $offer->countrys->name }}</td>
-                                        <td>{{ $offer->steeringwheel }}</td>
+                                        <td>{{ $offer->steeringwheels->name }}</td>
                                         <td>{{ $offer->location }}</td>
                                         </tr>
                                     </tbody>

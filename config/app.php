@@ -1,5 +1,7 @@
 <?php
 
+use Barryvdh\Debugbar\ServiceProvider;
+
 return [
 
     /*
@@ -174,6 +176,11 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+        /*
+         * Debugar
+         */
+        Barryvdh\Debugbar\ServiceProvider::class
 
     ],
 

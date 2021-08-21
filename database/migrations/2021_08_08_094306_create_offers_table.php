@@ -18,15 +18,15 @@ class CreateOffersTable extends Migration
             $table->string('carname'); //nazwa samochodu
             $table->integer('id_carmodel'); //model samochodu
             $table->integer('id_bodytype'); //rodzaj nadwozia
-            $table->string('fueltype'); //rodzaj paliwa
+            $table->string('id_fueltype'); //rodzaj paliwa
             $table->string('course'); //przebieg
             $table->date('yearproduction'); //rok produkcji
-            $table->string('vehiclestatus'); //status pojazdu
+            $table->string('id_vehiclestatus'); //status pojazdu
             $table->integer('id_engine'); //silnik
             $table->string('drive'); //napęd
             $table->integer('id_country'); //kraj pochodzenia
-            $table->integer('id_additionalequipment'); //dodatkowe wyposazenie
-            $table->string('steeringwheel'); //kierownica
+            $table->integer('id_equipment'); //dodatkowe wyposazenie
+            $table->string('id_steeringwheel'); //kierownica
             $table->string('location'); //lokalizacja
             $table->text('description'); //Opis
             $table->integer('price'); // cena

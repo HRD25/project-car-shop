@@ -25,7 +25,7 @@
                                         <ul class="list-group">
                                             <li class="list-group-item">
                                                 <b>Fueltype:</b>
-                                                <input type="text" value="{{ $offer->fueltype }}">
+                                                <input type="text" value="{{ $offer->fueltypes->name }}">
                                             </li>
                                         </ul>
                                     </div>
@@ -52,7 +52,7 @@
                                         <ul class="list-group">
                                             <li class="list-group-item">
                                                 <b>Steeringwheel:</b><input type="text"
-                                                    value="{{ $offer->steeringwheel }}">
+                                                    value="{{ $offer->steeringwheels->name }}">
                                             </li>
                                         </ul>
                                     </div>
@@ -60,7 +60,7 @@
                                         <ul class="list-group">
                                             <li class="list-group-item">
                                                 <b>Vehiclestatus:</b>
-                                                <input type="text" value="{{ $offer->vehiclestatus }}">
+                                                <input type="text" value="{{ $offer->vehiclestatus->name }}">
                                             </li>
                                         </ul>
                                     </div>
@@ -73,7 +73,7 @@
                         </div>
 
                         <div class="mt-3">
-                            <a href="{{ url()->previous() }}">
+                            <a href="{{ route('admin.dashboard') }}">
                                 <button type="button" class="btn btn-outline-dark col-sm-3">Back
                                 </button>
                             </a>
@@ -104,9 +104,9 @@
                                 <tbody>
 
                                     <td><input type="text" value="{{ $offer->carname }}"></td>
-                                    <td><input type="text" value="{{ $offer->id_carmodel }}"></td>
+                                    <td><input type="text" value="{{ $offer->carmodels->name }}"></td>
                                     <td><input type="text" value="{{ $offer->bodytypes->name }}"></td>
-                                    <td><input type="text" value="{{ $offer->fueltype }}"></td>
+                                    <td><input type="text" value="{{ $offer->fueltypes->name }}"></td>
                                     <td><input type="text" value="{{ $offer->course }}"></td>
                                     <td><input type="text" value="{{ $offer->yearproduction }}"></td>
                                     </tr>
@@ -122,11 +122,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <td><input type="text" value="{{ $offer->vehiclestatus }}"></td>
-                                    <td><input type="text" value="{{ $offer->id_engine }}"></td>
+                                    <td><input type="text" value="{{ $offer->vehiclestatus->name }}"></td>
+                                    <td><input type="text" value="{{ $offer->engines->name }}"></td>
                                     <td><input type="text" value="{{ $offer->drive }}"></td>
                                     <td><input type="text" value="{{ $offer->countrys->name }}"></td>
-                                    <td><input type="text" value="{{ $offer->steeringwheel }}"></td>
+                                    <td><input type="text" value="{{ $offer->steeringwheels->name }}"></td>
                                     <td><input type="text" value="{{ $offer->location }}"></td>
                                     </tr>
                                 </tbody>

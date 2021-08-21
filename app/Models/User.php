@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Http\Client\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -41,4 +44,44 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // SCOPE FUNCTION
+
+    //Admin
+
+    public function scopeGetRegisteredUsers()
+    {
+        return User::where('role', '!=', 'admin')->get();
+    }
+
+    public function scopeGetUserForShow(Builder $builder, int $id)
+    {
+        return User::where('id', $id)->get()->first();
+    }
+
+    //USER
+    public function scopeSettingsUser()
+    {
+        return User::select(['id', 'name', 'email', 'avatar'])->where('id', Auth::id())->get()->first();
+    }
+
+    public function scopeChangeAvatar(Builder $builder, Request $req, int $id)
+    {
+        return User::where('id', $id)->update([
+            'avatar' => $req->photo->store('avatar/' . $id, 'public')
+        ]);
+    }
+
+    public function scopeUserPasswordGet(Builder $builder, int $id)
+    {
+        return User::where('id', $id)->get('password')->first();
+    }
+
+    public function scopeChangeSettings(Builder $builder, Request $req, int $id)
+    {
+        return User::where('id', $id)->update([
+            'email' => $req->email,
+            'password' => Hash::make($req->newpassword)
+        ]);
+    }
 }

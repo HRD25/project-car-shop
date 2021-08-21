@@ -165,6 +165,16 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        <div class="row p-0 m-0 bg-dark">
+                            <div class="col-sm-4"></div>
+
+                            <div class="col-sm-4">
+                                {{ $offers->links('pagination::bootstrap-4') }}
+                            </div>
+
+                            <div class="col-sm-4"></div>
+                        </div>
+
                     </div>
                 </div>
             </div>

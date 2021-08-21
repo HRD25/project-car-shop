@@ -39,63 +39,64 @@
     <!-- Search offert !-->
     <div class="card border-0 p-0 m-0">
         <div class="card-body bg-dark p-1">
-            <form action="/" method="POST">
+            <form action="#" method="GET">
                 <div class="row p-0 m-0">
                     <div class="col-sm-6 p-0 m-0">
                         <button class="btn btn-secondary dropdown-toggle btn-sm rounded-pill" type="button"
                             id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                             Bodytypes
                         </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><input type="text"></li>
-                            <li><a class="dropdown-item" href="#">Menu item</a></li>
-                            <li><a class="dropdown-item" href="#">Menu item</a></li>
+                        <ul class="dropdown-menu p-0 m-0" aria-labelledby="dropdownMenuButton">
+                            @foreach ($stats['bodytypes'] as $stat)
+                                <li class="text-start">
+                                    <p class="p-0 m-0"><input type="checkbox" name="bodytype" value="{{ $stat['name'] }}">
+                                        {{ $stat['name'] }}</p>
+                                </li>
+                            @endforeach
                         </ul>
                         <button class="btn btn-secondary dropdown-toggle btn-sm rounded-pill" type="button"
                             id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                             CarModel
                         </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><input type="text"></li>
-                            <li><a class="dropdown-item" href="#">Menu item</a></li>
-                            <li><a class="dropdown-item" href="#">Menu item</a></li>
+                        <ul class="dropdown-menu p-0 m-0" aria-labelledby="dropdownMenuButton">
+                            @foreach ($stats['carmodel'] as $stat)
+                                <li class="text-start">
+                                    <p class="p-0 m-0"><input type="checkbox" name="carmodel" value="{{ $stat['name'] }}">
+                                        {{ $stat['name'] }}</p>
+                                </li>
+                            @endforeach
                         </ul>
                         <button class="btn btn-secondary dropdown-toggle btn-sm rounded-pill" type="button"
                             id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                             Fueltype
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a href="#" class="btn btn-white" role="button" data-bs-toggle="button">Toggle link</a>
-                            </li>
-                            <li><a href="#" class="btn btn-white" role="button" data-bs-toggle="button">Toggle link</a>
-                            </li>
-                            <li><a href="#" class="btn btn-white" role="button" data-bs-toggle="button">Toggle link</a>
-                            </li>
+                            @foreach ($stats['fueltype'] as $stat)
+                                <li class="text-start">
+                                    <p class="p-0 m-0"><input type="checkbox" name="fueltype" value="{{ $stat['name'] }}">
+                                        {{ $stat['name'] }}</p>
+                                </li>
+                            @endforeach
                         </ul>
                         <button class="btn btn-secondary dropdown-toggle btn-sm rounded-pill" type="button"
                             id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                             Course
                         </button>
                         <ul class="dropdown-menu p-0" aria-labelledby="dropdownMenuButton">
-                            <li><input type="number" name="course-od" placeholder="Of .. Km"></li>
-                            <li><input type="number" name="course-do" placeholder="To .. Km"></li>
+                            <li><input type="number" name="courseod" placeholder="Of .. Km" value=""></li>
+                            <li><input type="number" name="coursedo" placeholder="To .. Km" value=""></li>
                         </ul>
                         <button class="btn btn-secondary dropdown-toggle btn-sm rounded-pill" type="button"
                             id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                             Engine
                         </button>
                         <ul class="dropdown-menu p-0" aria-labelledby="dropdownMenuButton">
-                            <li><input class="form-check-input" type="checkbox" value="1.0" id="flexCheckDefault">
-                                <label class="form-check-label" for="flexCheckDefault">
-                                    1.0
-                                </label>
-                            </li>
-                            <li>
-                                <input class="form-check-input" type="checkbox" value="2.0" id="flexCheckDefault">
-                                <label class="form-check-label" for="flexCheckDefault">
-                                    2.0
-                                </label>
-                            </li>
+                            @foreach ($stats['engine'] as $stat)
+                                <li class="text-start">
+                                    <p class="p-0 m-0"><input type="checkbox" name="engine" value="{{ $stat['name'] }}">
+                                        {{ $stat['name'] }}</p>
+                                </li>
+                            @endforeach
                         </ul>
                         <button class="btn btn-secondary dropdown-toggle btn-sm rounded-pill" type="button"
                             id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
@@ -103,16 +104,12 @@
                         </button>
                         <ul class="dropdown-menu p-0" aria-labelledby="dropdownMenuButton">
                             <li>
-                                <input class="form-check-input" type="checkbox" value="2.0" id="flexCheckDefault">
-                                <label class="form-check-label" for="flexCheckDefault">
-                                    2.0
-                                </label>
+                                @foreach ($stats['steeringwheel'] as $stat)
+                            <li class="text-start">
+                                <p class="p-0 m-0"><input type="checkbox" name="steeringwheel"
+                                        value="{{ $stat['name'] }}"> {{ $stat['name'] }}</p>
                             </li>
-                            <li>
-                                <input class="form-check-input" type="checkbox" value="2.0" id="flexCheckDefault">
-                                <label class="form-check-label" for="flexCheckDefault">
-                                    2.0
-                                </label>
+                            @endforeach
                             </li>
                         </ul>
 
@@ -122,16 +119,16 @@
                         </button>
                         <ul class="dropdown-menu p-0" aria-labelledby="dropdownMenuButton">
                             <li>
-                                <input type="number" name="price-od" placeholder="Of money">
+                                <input type="number" name="priceod" placeholder="Of money" value="">
                             </li>
                             <li>
-                                <input type="number" name="price-do" placeholder="To money">
+                                <input type="number" name="pricedo" placeholder="To money" value="">
                             </li>
                         </ul>
                     </div>
                     <div class="col-sm-6 text-end">
                         <input type="text" name="carname" class="col-sm-6 text-center rounded-pill" placeholder="Carname">
-                        <button class="btn-sm btn-primary text-white rounded-pill border-0">Search</button>
+                        <button type="submit" class="btn-sm btn-primary text-white rounded-pill border-0">Search</button>
                     </div>
                 </div>
             </form>
@@ -140,7 +137,7 @@
     <!-- End Search offert !-->
 
     <!-- Center -->
-    <div class="container-fluid m-0 pt-0 p-3">
+    <div class="container-fluid m-0 pt-0 p-3 pb-0">
         <div class="row p-1 pt-0">
             @foreach ($offers as $offer)
                 <div class="col-sm-2 p-1">
@@ -174,7 +171,7 @@
                                     <div class="p-0 m-0">
                                         <ul class="list-group">
                                             <li class="list-group-item p-0">
-                                                <b>Vehiclestatus:</b> {{ $offer->vehiclestatus }}
+                                                <b>Vehiclestatus:</b> {{ $offer->vehiclestatus->name }}
                                             </li>
                                         </ul>
                                     </div>
@@ -213,6 +210,15 @@
                 </div>
             @endforeach
         </div>
+    </div>
+    <div class="container-fluid bg-dark p-1 m-0 text-center">
+        <div class="row p-0 m-0">
+            <div class="col-sm-5"></div>
+            <div class="col-sm"> {{ $offers->links('vendor.pagination.bootstrap-4') }}</div>
+            <div class="col-sm-5"></div>
+        </div>
+    </div>
+
     </div>
     <!-- End Center -->
 

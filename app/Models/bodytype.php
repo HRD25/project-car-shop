@@ -13,4 +13,12 @@ class bodytype extends Model
     {
         return $this->belongsTo(offer::class, 'id_bodytype', 'id');
     }
+
+    // SCOPE FUNCTION
+
+    public function scopeBodyType()
+    {
+        return bodytype::select(['id','name'])->get();
+    }
+
 }

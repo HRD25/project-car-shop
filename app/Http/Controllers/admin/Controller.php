@@ -6,10 +6,7 @@ use App\Http\Controllers\Controller as HttpController;
 use App\Models\offer;
 use App\Models\User;
 use App\Models\viewhome;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-
 class Controller extends HttpController
 {
     protected $offer;
@@ -27,11 +24,65 @@ class Controller extends HttpController
     {
         return view('admin.dashboard', [
             'stats' => $this->offer->StatsAdmin(),
-            'offers' => $this->offer->OffersDashboard()
+            'offers' => $this->offer->OffersForDashboard()
         ]);
     }
 
     public function updateView(int $id, Request $req)
+    {
+        $this->checkSwitch($req, $id);
+        return redirect()->route('admin.viewusers');
+    }
+
+    public function addOffer()
+    {
+        return view('admin.AddOffer');
+    }
+
+    public function editOffer(int $id)
+    {
+        return view('admin.edditOffer', ['offer' => $this->offer->GetOfferForEdit($id)]);
+    }
+
+    public function showUsers()
+    {
+        return view('admin.Users', ['users' => $this->user->GetRegisteredUsers()]);
+    }
+
+    public function showuser(int $id)
+    {
+        return view('admin.User', ['user' => $this->user->GetUserForShow($id)]);
+    }
+
+    public function viewUsers()
+    {
+        return view('admin.viewUsers', ['sliders' => $this->slider->GetValueForAddToSlider()]);
+    }
+
+    public function viewOffer(int $id)
+    {
+        return view('admin.viewOffer', ['offers' => $this->offer->ShowOffer($id)]);
+    }
+
+    public function deleteOffer(int $id)
+    {
+        $this->offer->DestroyOffer($id);
+        return redirect()->route('admin.dashboard');
+    }
+
+    public function addViewUser(Request $req)
+    {
+        $this->slider->AddPhotoForSLider($req);
+        return redirect()->route('admin.addViewUser');
+    }
+
+    public function deleteViewUser(int $id)
+    {
+        $this->slider->DestroyPhotoForSlider($id);
+        return redirect()->route('admin.viewusers');
+    }
+
+    private function checkSwitch(Request $req, int $id)
     {
         $switch = 'off';
         if ($req->SwitchActive == null) {
@@ -45,71 +96,15 @@ class Controller extends HttpController
             } else if (!empty($req->Switch3)) {
                 $switch = $req->Switch3;
             }
-            if ($req->Switch1 != null && $req->Switch2 != null || $req->Switch1 != null && $req->Switch3 != null || $req->Switch2 != null && $req->Switch3 != null) {
+
+            if (
+                $req->Switch1 != null && $req->Switch2 != null ||
+                $req->Switch1 != null && $req->Switch3 != null ||
+                $req->Switch2 != null && $req->Switch3 != null
+            ) {
                 $switch = 'off';
             }
         }
-
-        $this->slider->where('id', $id)->update([
-            'status' => $switch,
-            'active' => $action
-        ]);
-        return redirect()->route('admin.viewusers');
-    }
-
-    public function addOffer()
-    {
-        return view('admin.AddOffer');
-    }
-
-    public function editOffer(int $id)
-    {
-        return view('admin.edditOffer', ['offer' => $this->offer->where('id', $id)->with('bodytypes', 'countrys')->first()]);
-    }
-
-    public function showUsers()
-    {
-        return view('admin.Users', ['users' => $this->user->where('role', '!=', 'admin')->get()]);
-    }
-
-    public function showuser(int $id)
-    {
-        return view('admin.User', ['user' => $this->user->where('id', $id)->get()->first()]);
-    }
-
-    public function viewUsers()
-    {
-        return view('admin.viewUsers', ['sliders' => $this->slider->get()]);
-    }
-
-    public function viewOffer(int $id)
-    {
-        return view('admin.viewOffer', ['offers' => $this->offer->ShowOffer($id)]);
-    }
-
-    public function deleteOffer(int $id)
-    {
-        $this->offer->destroy($id);
-        return redirect()->route('admin.dashboard');
-    }
-
-    public function addViewUser(Request $req)
-    {
-        if (Storage::disk('local')->exists($req->photo)) {
-            Storage::disk('lcoal')->delete($req->photo);
-        }
-
-        $this->slider->insert([
-            'photo' => $req->photo->store('slider', 'public'),
-            'created_at' => Carbon::now()
-        ]);
-
-        return redirect()->route('admin.addViewUser');
-    }
-
-    public function deleteViewUser(int $id)
-    {
-        $this->slider->destroy($id);
-        return redirect()->route('admin.viewusers');
+        $this->slider->UpdateSwitchForSlider($id, $switch, $action);
     }
 }
