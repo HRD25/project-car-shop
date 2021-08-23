@@ -52,7 +52,7 @@ class Controller extends HttpController
     public function deletefavorite(int $id)
     {
         $this->favorite->DestroyFavorite($id);
-        return redirect()->route('user.showfavorites');
+        return redirect()->route('home');
     }
 
     private function change($req, $id)

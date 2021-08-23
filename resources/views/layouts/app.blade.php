@@ -29,10 +29,11 @@
 
 <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark text-white">
-        <div class="container">
+        <div class="container m-0">
             <a class="navbar-brand" href="{{ url('/') }}">
-                {{ config('app.name', 'Laravel') }}
+                {{ config('app.name', 'CarShop') }}
             </a>
+
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="{{ __('Toggle navigation') }}">
@@ -95,17 +96,16 @@
                                         </svg>
                                         My Offers</a>
                                 </li>
-
-                                <li class="nav-item mt-1 p-0">
+                                <li class="nav-item mt-1 p-0s">
                                     <a class="nav-link" href="#">
                                         <span class="badge bg-secondary rounded-circle">4</span>
                                         Cart
                                     </a>
                                 </li>
-
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle col-sm- pt-2 p-0" href="#" id="navbarDarkDropdownMenuLink"
-                                        role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <a class="nav-link dropdown-toggle col-sm- pt-2 p-0" href="#"
+                                        id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
                                         @if (Auth::user()->avatar)
                                             <img src="{{ asset('/storage/' . Auth::user()->avatar) }}"
                                                 class="img-fluid rounded-circle p-0 m-0" style="height:30px; width:40px;">
@@ -119,8 +119,7 @@
                                     <ul class="dropdown-menu dropdown-menu-dark"
                                         aria-labelledby="navbarDarkDropdownMenuLink">
                                         <li>
-                                            <a class="dropdown-item text-center"
-                                                href="{{ route('user.myoffers') }}">
+                                            <a class="dropdown-item text-center" href="{{ route('user.myoffers') }}">
                                                 My Offers
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                     fill="currentColor" class="bi bi-card-text" viewBox="0 0 16 16">
@@ -133,8 +132,7 @@
                                         </li>
 
                                         <li>
-                                            <a class="dropdown-item text-center"
-                                                href="{{ route('user.settingsuser')}}">
+                                            <a class="dropdown-item text-center" href="{{ route('user.settingsuser') }}">
                                                 Settings
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                     fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
@@ -149,7 +147,7 @@
                                         <li>
                                             <a class="dropdown-item text-center" href="{{ route('logout') }}"
                                                 onclick="event.preventDefault();
-                                                                                                                                                                                                                                document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                            document.getElementById('logout-form').submit();">
                                                 {{ __('Logout') }}
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                     fill="currentColor" class="bi bi-power" viewBox="0 0 16 16">

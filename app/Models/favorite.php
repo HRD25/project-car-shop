@@ -32,6 +32,6 @@ class favorite extends Model
 
     public function scopeDestroyFavorite(Builder $builder,int $id)
     {
-        return favorite::destroy($id);
+        return favorite::where('id_offer',$id)->delete();
     }
 }
