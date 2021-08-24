@@ -96,12 +96,8 @@
                                         </svg>
                                         My Offers</a>
                                 </li>
-                                <li class="nav-item mt-1 p-0s">
-                                    <a class="nav-link" href="#">
-                                        <span class="badge bg-secondary rounded-circle">4</span>
-                                        Cart
-                                    </a>
-                                </li>
+
+
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle col-sm- pt-2 p-0" href="#"
                                         id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown"
@@ -130,7 +126,6 @@
                                                 </svg>
                                             </a>
                                         </li>
-
                                         <li>
                                             <a class="dropdown-item text-center" href="{{ route('user.settingsuser') }}">
                                                 Settings
@@ -147,7 +142,7 @@
                                         <li>
                                             <a class="dropdown-item text-center" href="{{ route('logout') }}"
                                                 onclick="event.preventDefault();
-                                                                                                                                                                                                                                                            document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                                                            document.getElementById('logout-form').submit();">
                                                 {{ __('Logout') }}
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                     fill="currentColor" class="bi bi-power" viewBox="0 0 16 16">

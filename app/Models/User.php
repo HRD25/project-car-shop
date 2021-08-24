@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Http\Client\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Notifications\Notifiable;
@@ -44,6 +44,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // Related
+    public function offers()
+    {
+        $this->belongsTo(offer::class, 'id', 'id_user');
+    }
 
     // SCOPE FUNCTION
 

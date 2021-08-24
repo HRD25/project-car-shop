@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\admin\Controller;
 use App\Http\Controllers\homeController;
+use App\Http\Controllers\MailController;
+use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\user\Controller as UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +35,7 @@ Route::group([
     Route::get('/settings/user', [UserController::class, 'settingsuser'])->name('settingsuser');
     Route::patch('/settings/change/user/{id}', [UserController::class, 'settingschange'])->name('settingschange');
     Route::get('/myoffers/user', [UserController::class, 'myoffers'])->name('myoffers');
+    Route::get('/email/send', [MailController::class, 'sendMessage'])->name('email');
 });
 
 Route::group([

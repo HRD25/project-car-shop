@@ -19,7 +19,7 @@ class favorite extends Model
 
     public function scopeFavoritesGet()
     {
-        return favorite::select(['id', 'id_user', 'id_offer'])->where('id_user', Auth::id())->with('offers')->get();
+        return favorite::select()->where('id_user', Auth::id())->with('offers')->get();
     }
 
     public function scopeAddFavorite(Builder $builder,int $id)

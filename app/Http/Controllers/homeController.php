@@ -11,8 +11,6 @@ use App\Models\fueltype;
 use App\Models\steeringwheel;
 use App\Models\viewhome;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-
 class homeController extends Controller
 {
     protected $favorite;
@@ -54,7 +52,6 @@ class homeController extends Controller
         return view('user.home', [
             'Sliders' => $this->Slider->PhotoForSlider(),
             'offers' => $this->offer->OfferforHome($req),
-            'idUser' => Auth::id(),
             'stats' => [
                 'bodytypes' => $this->bodytype->BodyType(),
                 'carmodel' => $this->carmodel->CarModel(),

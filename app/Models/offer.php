@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\country;
 use App\Models\bodytype;
+use App\Models\favorite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
@@ -29,7 +30,7 @@ class offer extends Model
 
     public function favorites()
     {
-        return $this->hasOne(favorite::class, 'id_offer', 'id');
+        return $this->hasMany(favorite::class, 'id', 'id_offer');
     }
 
     public function carmodels()
@@ -55,6 +56,11 @@ class offer extends Model
     public function engines()
     {
         return $this->hasOne(engine::class, 'id', 'id_engine');
+    }
+
+    public function Users()
+    {
+        return $this->hasOne(User::class, 'id', 'id_user');
     }
 
     /// SCOPE FUNCTION
@@ -149,11 +155,11 @@ class offer extends Model
                 ->when($req->pricedo, function ($query) use ($req) {
                     $query->where('offers.price', '<', $req->pricedo);
                 })
-                ->with('vehiclestatus')
+                ->with('vehiclestatus', 'favorites')
                 ->paginate(12);
         }
 
-        return offer::with('vehiclestatus')->paginate(12);
+        return offer::with('vehiclestatus', 'favorites')->paginate(12);
     }
 
     public function scopeSimilarOffers()
