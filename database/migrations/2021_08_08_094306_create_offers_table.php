@@ -20,10 +20,10 @@ class CreateOffersTable extends Migration
             $table->integer('id_bodytype'); //rodzaj nadwozia
             $table->string('id_fueltype'); //rodzaj paliwa
             $table->string('course'); //przebieg
-            $table->date('yearproduction'); //rok produkcji
+            $table->year('yearproduction'); //rok produkcji
             $table->string('id_vehiclestatus'); //status pojazdu
             $table->integer('id_engine'); //silnik
-            $table->string('drive'); //napęd
+            $table->string('id_drive'); //napęd
             $table->integer('id_country'); //kraj pochodzenia
             $table->integer('id_equipment'); //dodatkowe wyposazenie
             $table->string('id_steeringwheel'); //kierownica

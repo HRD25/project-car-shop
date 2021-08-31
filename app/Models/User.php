@@ -48,7 +48,12 @@ class User extends Authenticatable
     // Related
     public function offers()
     {
-        $this->belongsTo(offer::class, 'id', 'id_user');
+       return $this->belongsTo(offer::class, 'id', 'id_user');
+    }
+
+    public function messages()
+    {
+        return $this->belongsTo(messages::class,'id','idFromUser');
     }
 
     // SCOPE FUNCTION

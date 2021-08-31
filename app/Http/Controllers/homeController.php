@@ -11,6 +11,8 @@ use App\Models\fueltype;
 use App\Models\steeringwheel;
 use App\Models\viewhome;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 class homeController extends Controller
 {
     protected $favorite;
@@ -44,7 +46,11 @@ class homeController extends Controller
 
     public function ShowOffer(int $id)
     {
-        return view('user.viewOffer', ['offers' => $this->offer->ShowOffer($id)]);
+        return view('user.viewOffer', [
+            'offer' => $this->offer->ShowOffer($id),
+            'suggestions' => offer::inRandomOrder()->with('vehiclestatus')->get()->take(6),
+            'idFavorits' => $this->mapIdfavorits()
+        ]);
     }
 
     public function home(Request $req)
@@ -52,6 +58,7 @@ class homeController extends Controller
         return view('user.home', [
             'Sliders' => $this->Slider->PhotoForSlider(),
             'offers' => $this->offer->OfferforHome($req),
+            'idFavorits' => $this->mapIdfavorits(),
             'stats' => [
                 'bodytypes' => $this->bodytype->BodyType(),
                 'carmodel' => $this->carmodel->CarModel(),
@@ -60,5 +67,14 @@ class homeController extends Controller
                 'fueltype' => $this->fueltype->FuelType()
             ]
         ]);
+    }
+
+    private function mapIdfavorits()
+    {
+        $idFavorits = [];
+        foreach (favorite::where('id_user', Auth::id())->get() as $favorit) {
+            $idFavorits[] = $favorit->id_offer;
+        }
+        return $idFavorits;
     }
 }

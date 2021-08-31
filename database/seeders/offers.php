@@ -26,8 +26,15 @@ class offers extends Seeder
         DB::table('vehiclestatus')->truncate();
         DB::table('engines')->truncate();
         DB::table('steeringwheels')->truncate();
+        DB::table('drives')->truncate();
 
         $faker = Factory::create();
+
+        for ($i = 0; $i < 3; $i++) {
+            DB::table('drives')->insert([
+                'name' => $faker->randomElement(['przod', 'tył', 'quatro'])
+            ]);
+        }
 
         for ($i = 0; $i < 2; $i++) {
             DB::table('steeringwheels')->insert([
@@ -58,7 +65,6 @@ class offers extends Seeder
                 'name' => $faker->randomElement(['a4b7', 'a4b8', 'a4b8', 'q3', 'q5', 'm2', 'm3', 'm4'])
             ]);
         }
-
 
         for ($i = 0; $i < 5; $i++) {
             DB::table('viewhome')->insert([
@@ -91,10 +97,10 @@ class offers extends Seeder
                 'id_bodytype' => $faker->numberBetween(1, 4),
                 'id_fueltype' => $faker->numberBetween(1, 3),
                 'course' => $faker->numberBetween(1000, 300000),
-                'yearproduction' => $faker->date(),
+                'yearproduction' => $faker->year(),
                 'id_vehiclestatus' => $faker->numberBetween(1, 3),
                 'id_engine' => $faker->numberBetween(1, 5),
-                'drive' => $faker->randomElement(['przod', 'tył', 'na 4']),
+                'id_drive' => $faker->numberBetween(1, 3),
                 'id_country' => $faker->numberBetween(1, 30),
                 'id_equipment' => $faker->numberBetween(1, 8),
                 'id_steeringwheel' => $faker->numberBetween(1, 2),
@@ -102,7 +108,7 @@ class offers extends Seeder
                 'description' => $faker->text(300),
                 'price' => $faker->numberBetween(1000, 30000),
                 'photo' => $faker->imageUrl(),
-                'id_user' => $faker->numberBetween(1, 3),
+                'id_user' => $faker->numberBetween(1, 2),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);

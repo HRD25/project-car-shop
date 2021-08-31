@@ -36,6 +36,14 @@ Route::group([
     Route::patch('/settings/change/user/{id}', [UserController::class, 'settingschange'])->name('settingschange');
     Route::get('/myoffers/user', [UserController::class, 'myoffers'])->name('myoffers');
     Route::get('/email/send', [MailController::class, 'sendMessage'])->name('email');
+    Route::get('/addoffer', [UserController::class, 'addOffer'])->name('addOffer');
+    Route::post('/addoffer/send', [UserController::class, 'sendOffer'])->name('sendOffer');
+
+    Route::get('/messages/offer/{idOffer}/{ToUser}', [UserController::class,'MessagesOffer'])->name('MessagesOffer');
+
+    Route::post('messages/send/{id_offer}/{idToUser}', [UserController::class,'sendMessage'])->name('sendMessage');
+
+    Route::get('/messages', [UserController::class,'ShowMessages'])->name('ShowMessages');
 });
 
 Route::group([
@@ -45,14 +53,13 @@ Route::group([
     'middleware' => ['auth', 'admin']
 ], function () {
     Route::get('/dashboard', [Controller::class, 'dashboard'])->name('dashboard');
-    Route::get('/addoffer', [Controller::class, 'addOffer'])->name('addoffer');
     Route::get('/showusers', [Controller::class, 'showUsers'])->name('showusers');
-    Route::get('/viewusers', [Controller::class, 'viewUsers'])->name('viewusers');
+    Route::get('/showusers/user/{id}', [Controller::class, 'showuser'])->name('showuser');
     Route::get('/offer/{id}', [Controller::class, 'viewOffer'])->name('offer');
     Route::delete('/delete/offer/{id}', [Controller::class, 'deleteOffer'])->name('deleteOffer');
     Route::get('/edit/offer/{id}', [Controller::class, 'editOffer'])->name('editOffer');
+    Route::get('/viewusers', [Controller::class, 'viewUsers'])->name('viewusers');
+    Route::post('/addViewUser', [Controller::class, 'addViewUser'])->name('addViewUser');
     Route::patch('/save/viewuser/{id}', [Controller::class, 'updateView'])->name('updateView');
     Route::delete('/delete/viewuser/{id}', [Controller::class, 'deleteViewUser'])->name('deleteViewUser');
-    Route::post('/addViewUser', [Controller::class, 'addViewUser'])->name('addViewUser');
-    Route::get('/showusers/user/{id}', [Controller::class, 'showuser'])->name('showuser');
 });

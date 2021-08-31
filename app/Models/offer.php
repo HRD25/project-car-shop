@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\country;
 use App\Models\bodytype;
 use App\Models\favorite;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
@@ -30,7 +31,7 @@ class offer extends Model
 
     public function favorites()
     {
-        return $this->hasMany(favorite::class, 'id', 'id_offer');
+        return $this->hasOne(favorite::class, 'id', 'id_offer');
     }
 
     public function carmodels()
@@ -63,10 +64,13 @@ class offer extends Model
         return $this->hasOne(User::class, 'id', 'id_user');
     }
 
+    public function drives()
+    {
+        return $this->hasOne(drive::class,'id','id_drive');
+    }
+
     /// SCOPE FUNCTION
-
     // ADMIN
-
     public function scopeGetOfferForEdit(Builder $builder, int $id)
     {
         return offer::where('id', $id)->with(['bodytypes', 'countrys', 'vehiclestatus', 'equipments'])->get()->first();
@@ -86,13 +90,35 @@ class offer extends Model
         return offer::paginate(8);
     }
 
-
     public function scopeDestroyOffer(Builder $builder, int $id)
     {
         return offer::destroy($id);
     }
 
     // USER
+    public function scopeAddNewOffer(Builder $builder, Request $req)
+    {
+        return offer::insert([
+            "photo" => $req->photo ?? 'no',
+            "carname" => $req->carname,
+            "price" => $req->price,
+            "yearproduction" => $req->yearproduction,
+            "course" => $req->course,
+            "id_steeringwheel" => $req->steeringwheel,
+            "id_vehiclestatus" => $req->vehiclestatu,
+            "id_fueltype" => $req->fueltype,
+            "description" => $req->description,
+            "id_carmodel" => $req->carmodel,
+            "id_bodytype" => $req->bodytype,
+            "id_equipment" => $req->equipment,
+            "id_engine" => $req->engine,
+            "location" => $req->location,
+            "id_country" => $req->country,
+            "id_drive" => $req->drive,
+            "id_user" => Auth::id(),
+            "created_at" => Carbon::now()
+        ]);
+    }
 
     public function scopeMyOffers()
     {
@@ -169,6 +195,6 @@ class offer extends Model
 
     public function scopeShowOffer(Builder $builder, int $id)
     {
-        return offer::where('id', $id)->with('bodytypes', 'countrys', 'fueltypes', 'vehiclestatus', 'steeringwheels', 'carmodels', 'engines', 'equipments')->get();
+        return offer::where('id', $id)->with('bodytypes', 'countrys', 'fueltypes', 'vehiclestatus', 'steeringwheels', 'carmodels', 'engines', 'equipments','drives')->first();
     }
 }
