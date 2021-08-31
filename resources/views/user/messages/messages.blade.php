@@ -45,7 +45,9 @@
                                 </div>
 
                                 <div class="col-sm-4 text-center">
-                                    <h4><b>{{ $ToUser->name }}</b></h4>
+                                    <img src="{{ asset('/storage/' . $ToUser->avatar) }}"
+                                        class="img-fluid rounded-circle p-0 m-0" style="height:30px">
+                                    <span class="h4 ms-2">{{ $ToUser->name }}</span>
                                 </div>
 
                                 <div class="col-sm-4">
