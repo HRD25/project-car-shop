@@ -2,11 +2,18 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use App\Models\drive;
+use App\Models\engine;
 use App\Models\country;
 use App\Models\bodytype;
+use App\Models\carmodel;
 use App\Models\favorite;
-use Carbon\Carbon;
+use App\Models\fueltype;
+use App\Models\equipment;
+use App\Models\vehiclestatu;
 use Illuminate\Http\Request;
+use App\Models\steeringwheel;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
@@ -79,7 +86,7 @@ class offer extends Model
     public function scopeStatsAdmin()
     {
         return [
-            'Offers' => offer::count(),
+            'Offers' => offer::count('id'),
             'Users' => User::where('role', '!=', 'admin')->count(),
             'Sellers' => User::where('role', 'seller')->count()
         ];;
@@ -87,7 +94,7 @@ class offer extends Model
 
     public function scopeOffersForDashboard()
     {
-        return offer::paginate(8);
+        return offer::with(['Users'])->paginate(8);
     }
 
     public function scopeDestroyOffer(Builder $builder, int $id)
@@ -96,6 +103,26 @@ class offer extends Model
     }
 
     // USER
+    public function scopeAdditivesForNewOffer()
+    {
+        return [
+            'fueltype' => fueltype::get(['id', 'name']),
+            'vehiclestatu' =>  vehiclestatu::get(['id', 'name']),
+            'steeringwheel' => steeringwheel::get(['id', 'name']),
+            'carmodels' => carmodel::get(['id', 'name']),
+            'bodytypes' =>  bodytype::get(['id', 'name']),
+            'equipments' =>  equipment::get(['id', 'name']),
+            'engines' => engine::get(['id', 'name']),
+            'countrys' => country::get(['id', 'name']),
+            'drives' =>  drive::get(['id', 'name'])
+        ];
+    }
+
+    public function scopeSuggestionsOffers()
+    {
+        return offer::inRandomOrder()->with('vehiclestatus')->get()->take(15);
+    }
+
     public function scopeAddNewOffer(Builder $builder, Request $req)
     {
         return offer::insert([

@@ -10,14 +10,12 @@
 
     <title>{{ config('app.name', 'CarShop') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
     <!-- Scripts-->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 
-    <!-- Scripts-->
     <script src="{{ asset('js/UploadimageShow.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -25,6 +23,15 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css" rel="stylesheet">
+    <style>
+        .slick-next:before,
+        .slick-prev:before {
+            color: black
+        }
+
+    </style>
 </head>
 
 <body>
@@ -56,7 +63,8 @@
 
                                 @if (Route::has('register'))
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                        <a class="nav-link"
+                                            href="{{ route('register') }}">{{ __('Register') }}</a>
                                     </li>
                                 @endif
                             @endguest
@@ -107,7 +115,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item mt-1 p-0">
-                                    <a class="nav-link" href="{{ route('user.ShowMessages') }}">
+                                    <a class="nav-link" href="{{ route('user.message') }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                             class="bi bi-pin-angle-fill" viewBox="0 0 16 16">
                                             <path
@@ -162,7 +170,7 @@
                                         <li>
                                             <a class="dropdown-item text-center" href="{{ route('logout') }}"
                                                 onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                        document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                document.getElementById('logout-form').submit();">
                                                 {{ __('Logout') }}
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                     fill="currentColor" class="bi bi-power" viewBox="0 0 16 16">
@@ -189,6 +197,125 @@
     <div class="container-fluid p-0 m-0">
         @yield('content')
     </div>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
+
+    <script>
+        // SLIDER
+        $('.slider').slick({
+            dots: true,
+            infinite: false,
+            speed: 300,
+            slidesToShow: 5,
+            slidesToScroll: 3,
+            responsive: [{
+                    breakpoint: 1024,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 3,
+                        infinite: true,
+                        dots: true
+                    }
+                },
+                {
+                    breakpoint: 600,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 2
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                    }
+                }
+
+            ]
+        });
+
+        // MESSAGES
+        var receiver_id = '';
+        var my_id = "{{ Auth::id() }}";
+        var offer_id = '';
+
+        $(document).ready(function() {
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            Pusher.logToConsole = true;
+
+            var pusher = new Pusher('0afc885fbd5f264ed97b', {
+                cluster: 'eu'
+            });
+
+            var channel = pusher.subscribe('my-channel');
+            channel.bind('my-event', function(data) {
+
+                if (my_id == data.from) {
+
+                } else if (my_id == data.to) {
+                    if (receiver_id == data.from) {
+                        $('#' + data.from).click();
+                    } else {
+                        var pending = parseInt($('#' + data.from).find('.pending').html());
+                        if (pending) {
+                            $('#' + data.from).find('.pending').html(pending + 1);
+                        } else {
+                            $('#' + data.from).append('<span class="pending">1</span')
+                        }
+                    }
+                }
+            });
+
+            $('.user').click(function() {
+                $('.user').removeClass('Useractive');
+                $(this).addClass('Useractive');
+                receiver_id = $(this).attr('id');
+                // offer_id = $('.idoffer').attr('id');
+
+                $.ajax({
+                    type: "get",
+                    url: "message/" + receiver_id,
+                    data: "",
+                    cache: false,
+                    success: function(data) {
+                        $('#messages').html(data);
+                        scrollToBottomFunc();
+                    }
+                })
+            });
+
+            $(document).on('keyup', '.input-text input', function(e) {
+                var message = $(this).val();
+
+                if (e.keyCode == 13 && message != '' && receiver_id != '') {
+                    $(this).val('');
+
+                    var datastr = "receiver_id=" + receiver_id + "&message=" + message;
+                    $.ajax({
+                        type: "post",
+                        url: "message",
+                        data: datastr,
+                        cache: false,
+                        success: function(data) {},
+                        error: function(jqXHR, status, err) {},
+                        complete: function() {}
+                    })
+                }
+            });
+        });
+
+        function scrollToBottomFunc() {
+            $('.message-wrapper').animate({
+                scrollTop: $('.message-wrapper').get(0).scrollHeight
+            }, 50);
+        }
+    </script>
 </body>
 
 </html>

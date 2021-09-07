@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMessagesTable extends Migration
+class CreateUserslistformessageTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class CreateMessagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('messages', function (Blueprint $table) {
+        Schema::create('userslistformessage', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('id_offer')->nullable();
-            $table->bigInteger('idToUser');
-            $table->bigInteger('idFromUser');
-            $table->longText('messages');
-            $table->tinyInteger('is_read');
+            $table->bigInteger('idOffer')->nullable();
+            $table->bigInteger('id_user')->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ class CreateMessagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('messages');
+        Schema::dropIfExists('userslistformessage');
     }
 }

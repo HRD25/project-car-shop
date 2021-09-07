@@ -2,24 +2,15 @@
 
 namespace App\Http\Controllers\user;
 
-use App\Http\Controllers\Controller as HttpController;
-use App\Models\bodytype;
-use App\Models\carmodel;
-use App\Models\country;
-use App\Models\drive;
-use App\Models\engine;
-use App\Models\equipment;
-use App\Models\favorite;
-use App\Models\fueltype;
-use App\Models\messages;
-use App\Models\offer;
-use App\Models\steeringwheel;
+use Pusher\Pusher;
 use App\Models\User;
-use App\Models\vehiclestatu;
-use Illuminate\Database\Events\DatabaseRefreshed;
+use App\Models\offer;
+use App\Models\favorite;
+use App\Models\messages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\Controller as HttpController;
 
 class Controller extends HttpController
 {
@@ -41,6 +32,27 @@ class Controller extends HttpController
 
     public function sendOffer(Request $req)
     {
+        $req->validate([
+            'photo' => 'nullable|max:2048',
+            'carname' => 'required|max:50',
+            'price' => 'required|numeric|max:3000000',
+            'yearproduction' => 'required|date',
+            "course" => 'required|numeric|max:6',
+            "steeringwheel" => 'required',
+            "vehiclestatu" => 'required',
+            "fueltype" => 'required',
+            "description" => 'required',
+            "carmodel" => 'required',
+            "bodytype" => 'required',
+            "equipment" => 'required',
+            "engine" => 'required',
+            "location" => 'required|max:50',
+            "country" => 'required',
+            "drive" => 'required',
+        ]);
+
+
+
         $this->offer->AddNewOffer($req);
         return redirect()->route('user.myoffers');
     }
@@ -48,15 +60,7 @@ class Controller extends HttpController
     public function addOffer()
     {
         return view('user.AddOffer', [
-            'fueltype' => fueltype::get(['id', 'name']),
-            'vehiclestatu' =>  vehiclestatu::get(['id', 'name']),
-            'steeringwheel' => steeringwheel::get(['id', 'name']),
-            'carmodels' => carmodel::get(['id', 'name']),
-            'bodytypes' =>  bodytype::get(['id', 'name']),
-            'equipments' =>  equipment::get(['id', 'name']),
-            'engines' => engine::get(['id', 'name']),
-            'countrys' => country::get(['id', 'name']),
-            'drives' =>  drive::get(['id', 'name'])
+            'additives' => $this->offer->AdditivesForNewOffer()
         ]);
     }
 
@@ -88,70 +92,66 @@ class Controller extends HttpController
         return redirect()->route('home');
     }
 
-
-    public function ShowMessages()
+    ///////////
+    public function MessageTest($idOffer = null, $ToUser = null)
     {
-        $messagesFromUsers = [];
-        foreach (messages::where('idToUser', Auth::id())->get() as  $messages) {
-            $messagesFromUsers[] = $messages->idFromUser;
+        if ($idOffer != null && $ToUser != null) {
+            $users = User::where('id', $ToUser)->get();
+        } else {
+            $users = User::where('id', '!=', Auth::id())->get();
         }
-        $users = array_unique($messagesFromUsers);
+        //$users = DB::select("select users.id,users.name,users.email,users.avatar,count(is_read) as unread From users LEFT JOIN messages ON users.id = messages.idFromUser and is_read = 0 and messages.idToUser = " . Auth::id() . " where users.id !=" . Auth::id() . " group by users.id,users.name,users.avatar");
 
-        return view('user.messages.messages', [
-            'users' => User::whereIn('id', $users)->get()
-        ]);
+        return view('user.test.testMessages', ['users' => $users, 'idoffer' => $idOffer]);
     }
 
-    public function MessagesOffer(int $idOffer, int $toUser)
+    public function getMessage($user_id)
     {
-        // dd(messages::where('id_offer', $idOffer)
-        //     ->when('idToUser' == $toUser, function ($query, $toUser) {
-        //         $query->where('idToUser', $toUser);
-        //     })
-        //     ->when('idToUser' ==  Auth::id(), function ($query) {
-        //         $query->where('idToUser',  Auth::id());
-        //     })
-        //     ->when('idFromUser' ==  $toUser, function ($query, $toUser) {
-        //         $query->where('idFromUser',  $toUser);
-        //     })
-        //     ->when('idFromUser' ==  Auth::id(), function ($query) {
-        //         $query->where('idFromUser',  Auth::id());
-        //     })
-        //     ->get());
+        $my_id = Auth::id();
+        $messages = messages::where(function ($query) use ($user_id, $my_id) {
+            $query->where('idFromUser', $my_id)->where('idToUser',  $user_id);
+        })
+            ->orwhere(function ($query) use ($user_id, $my_id) {
+                $query->where('idFromUser', $user_id)->where('idToUser',  $my_id);
+            })
+            ->get();
 
-        return view('user.messages.messages', [
-            'Offer' => offer::where('id', $idOffer)->first(),
-            'ToUser' => User::where('id', $toUser)->first(),
-            'FromUser' => Auth::id(),
-            'messagesTo' =>
-            messages::where('id_offer', $idOffer)
-                ->when('idToUser' == $toUser, function ($query, $toUser) {
-                    $query->where('idToUser', $toUser);
-                })
-                ->when('idToUser' ==  Auth::id(), function ($query) {
-                    $query->where('idToUser',  Auth::id());
-                })
-                ->when('idFromUser' ==  $toUser, function ($query, $toUser) {
-                    $query->where('idFromUser',  $toUser);
-                })
-                ->when('idFromUser' ==  Auth::id(), function ($query) {
-                    $query->where('idFromUser',  Auth::id());
-                })
-                ->get(),
-        ]);
+        return view('user.test.messages.input-message', ['messages' =>  $messages]);
     }
 
-    public function sendMessage(Request $req, int $id_offer, int $idToUser)
+    public function testSendMessage(Request $req)
     {
-        messages::insert([
-            'id_offer' => $id_offer,
-            'idToUser' => $idToUser,
-            'idFromUser' => Auth::id(),
-            'messages' => $req->message
-        ]);
-        return redirect()->route('user.MessagesOffer', ['idOffer' => $id_offer, 'ToUser' => $idToUser]);
-    }
+        $idFrom = Auth::id();
+        $to = $req->receiver_id;
+        $message = $req->message;
 
+        $data = new messages();
+        $data->idFromUser = $idFrom;
+        $data->idToUser = $to;
+        $data->messages = $message;
+        $data->is_read = 0;
+        $data->save();
+
+        ////
+        $options = [
+            'cluster' => 'eu',
+            'useTLS' => true
+        ];
+
+        $pusher = new Pusher(
+            env('PUSHER_APP_KEY'),
+            env('PUSHER_APP_SECRET'),
+            env('PUSHER_APP_ID'),
+            $options
+        );
+
+        $data = ['from' => $idFrom, 'to' => $to];
+
+        $pusher->trigger('my-channel', 'my-event', $data);
+
+        return response($message);
+    }
+    /////////
 
     private function change($req, $id)
     {

@@ -118,7 +118,7 @@
                                         </td>
                                         <td class="text-center">{{ $offer->carname }}</td>
                                         <td class="text-center"> {{ $offer->price }} $</td>
-                                        <td class="text-center">{{ $offer->id_user }}</td>
+                                        <td class="text-center">{{ $offer->Users->name }}</td>
                                         <td class="text-center">
                                             <div>
                                                 <a href="{{ route('admin.offer', ['id' => $offer->id]) }}"

@@ -3,7 +3,6 @@
 @section('content')
     <div class="container-fluid mt-2">
         <div class="row">
-            <div class="col-sm-3"></div>
             <div class="col-sm-6">
                 <form action="{{ route('user.sendOffer') }}" method="POST">
                     @csrf
@@ -15,8 +14,8 @@
                             <div class="container">
                                 <div class="row mt-3">
                                     <div class="col-sm-3 text-center">
-                                        <input id="uploadPhoto" type="file" style="display: none" value="Browse"
-                                            name="photo" onchange="PreviewImage();">
+                                        <input id="uploadPhoto" type="file" style="display: none" name="photo"
+                                            onchange="PreviewImage();">
                                         <button type="button" value="" class="btn-sm btn-dark border-0 col-sm-9"
                                             onclick="document.getElementById('uploadPhoto').click();">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -31,14 +30,35 @@
                                     <div class="col-sm-5">
                                         <h4 class="text-center">
                                             <input type="text" name="carname" placeholder="CarName"
-                                                class="text-center border-dark border-1 rounded">
+                                                value="{{ old('carname') }}"
+                                                class="@error('carname') is-invalid @enderror text-center border-dark border-1 rounded">
                                         </h4>
                                     </div>
 
                                     <div class="col-sm-4">
-                                        <h5 class="text-end mb-0">Price: <input type="number"
-                                                class="col-sm-7 border-dark border-1 rounded" name="price">zł
+                                        <h5 class="text-end mb-0">Price: <input type="number" value="{{ old('price') }}"
+                                                class="@error('price') is-invalid @enderror col-sm-7 border-dark border-1 rounded"
+                                                name="price">zł
                                         </h5>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4 text-center">
+                                        @error('photo')
+                                            <div class="alert alert-danger p-0">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-sm-4 text-center">
+                                        @error('carname')
+                                            <div class="alert alert-danger p-0">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-sm-4 text-center">
+                                        @error('price')
+                                            <div class="alert alert-danger p-0">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
@@ -47,12 +67,13 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <ul class="list-group">
-                                            <li class="list-group-item p-0 text-center bg-dark text-white">
+                                            <li class="list-group-item p-0 text-center bg-dark text-white ">
                                                 <b>Yearproduct</b>
                                             </li>
                                             <li class="list-group-item p-0">
                                                 <input type="month" min="1850" maxlength="4" name="yearproduction"
-                                                    class="text-center col-sm-12 p-0 m-0">
+                                                    value="{{ old('yearproduction') }}"
+                                                    class="@error('yearproduction') is-invalid @enderror text-center col-sm-12 p-0 m-0">
                                             </li>
                                         </ul>
                                     </div>
@@ -63,9 +84,24 @@
                                                 <b>Course in km</b>
                                             </li>
                                             <li class="list-group-item p-0">
-                                                <input type="number" name="course" class="text-center col-sm-12 p-0 m-0">
+                                                <input type="number" name="course" value="{{ old('course') }}"
+                                                    class="@error('course') is-invalid @enderror text-center col-sm-12 p-0 m-0">
                                             </li>
                                         </ul>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-2">
+                                    <div class="col-sm-6">
+                                        @error('yearproduction')
+                                            <div class="alert alert-danger p-0">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-sm-6 text-center p-0">
+                                        @error('course')
+                                            <div class="alert alert-danger p-0">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
 
@@ -76,8 +112,8 @@
                                                 <b>SteeringWheel</b>
                                             </li>
                                             <li class="list-group-item p-0">
-                                                <select class="form-select form-select-sm" name="steeringwheel">
-                                                    @foreach ($steeringwheel as $steeringwheels)
+                                                <select class="form-select form-select-sm " name="steeringwheel">
+                                                    @foreach ($additives['steeringwheel'] as $steeringwheels)
                                                         <option value="{{ $steeringwheels->id }}">
                                                             {{ $steeringwheels->name }}</option>
                                                     @endforeach
@@ -93,7 +129,7 @@
                                             </li>
                                             <li class="list-group-item p-0">
                                                 <select class="form-select form-select-sm" name="vehiclestatu">
-                                                    @foreach ($vehiclestatu as $vehiclestatus)
+                                                    @foreach ($additives['vehiclestatu'] as $vehiclestatus)
                                                         <option value="{{ $vehiclestatus->id }}">
                                                             {{ $vehiclestatus->name }}</option>
                                                     @endforeach
@@ -109,7 +145,7 @@
                                             </li>
                                             <li class="list-group-item p-0">
                                                 <select class="form-select form-select-sm" name="fueltype">
-                                                    @foreach ($fueltype as $fueltyp)
+                                                    @foreach ($additives['fueltype'] as $fueltyp)
                                                         <option value="{{ $fueltyp->id }}">
                                                             {{ $fueltyp->name }}
                                                         </option>
@@ -117,6 +153,25 @@
                                                 </select>
                                             </li>
                                         </ul>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        @error('steeringwheel')
+                                            <div class="alert alert-danger p-0">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        @error('vehiclestatu')
+                                            <div class="alert alert-danger p-0">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        @error('fueltype')
+                                            <div class="alert alert-danger p-0">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
@@ -127,98 +182,107 @@
                             </button>
                         </div>
                     </div>
+            </div>
 
-                    <div class="card border border-dark mt-3">
-                        <div class="card-body">
-                            <h3 class="text-center"><b>Description</b></h3>
-                            <hr class="mt-1 mb-2">
-                            <h5 class="card-text">
-                                <textarea class="form-control" name="description" rows="5"
-                                    placeholder="Your description"></textarea>
-                            </h5>
-                            <h3 class="text-center mt-3"><b>Information to Car</b></h3>
-                            <hr class="mt-1">
-                            <div class="table-responsive mt-3">
-                                <table class="table">
-                                    <thead class="bg-dark text-white">
-                                        <tr>
-                                            <th scope="col" class="text-center">Location</th>
-                                            <th scope="col" class="text-center">Model</th>
-                                            <th scope="col" class="text-center">BodyType</th>
-                                            <th scope="col" class="text-center">Additionalequipment</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="p-0 m-0">
-                                                <input type="text" placeholder="location" class="col-sm-12 p-1 text-center"
-                                                    name="location">
-                                            </td>
-                                            <td class="p-0 m-0">
-                                                <select class="form-select" name="carmodel">
-                                                    @foreach ($carmodels as $carmodel)
-                                                        <option value="{{ $carmodel->id }}">{{ $carmodel->name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </td>
-                                            <td class="p-0 m-0">
-                                                <select class="form-select" name="bodytype">
-                                                    @foreach ($bodytypes as $bodytype)
-                                                        <option value="{{ $bodytype->id }}">{{ $bodytype->name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </td>
-                                            <td class="p-0 m-0">
-                                                <select class="form-select" name="equipment">
-                                                    @foreach ($equipments as $equipment)
-                                                        <option value="{{ $equipment->id }}">{{ $equipment->name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                    <thead class="bg-dark text-white">
-                                        <tr>
-                                            <th scope="col" class="text-center">Engine</th>
-                                            <th scope="col" class="text-center">Country</th>
-                                            <th scope="col" class="text-center">Drive</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="p-0 m-0">
-                                                <select class="form-select" name="engine">
-                                                    @foreach ($engines as $engine)
-                                                        <option value="{{ $engine->id }}">{{ $engine->name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </td>
-                                            <td class="p-0 m-0">
-                                                <select class="form-select" name="country">
-                                                    @foreach ($countrys as $country)
-                                                        <option value="{{ $country->id }}">{{ $country->name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </td>
-                                            <td class="p-0 m-0">
-                                                <select class="form-select" name="drive">
-                                                    @foreach ($drives as $drive)
-                                                        <option value="{{ $drive->id }}">{{ $drive->name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+            <div class="col-sm-6">
+                <div class="card border border-dark mt-3">
+                    <div class="card-body">
+                        <h3 class="text-center"><b>Description</b></h3>
+                        @error('description')
+                            <div class="alert alert-danger p-0">{{ $message }}</div>
+                        @enderror
+                        <hr class="mt-1 mb-2">
+                        <h5 class="card-text">
+                            <textarea class="form-control @error('description') is-invalid @enderror" name="description"
+                                rows="10" placeholder="Your description">{{ old('description') }}</textarea>
+                        </h5>
+                        <h3 class="text-center mt-3"><b>Information to Car</b></h3>
+                        @error('location')
+                            <div class="alert alert-danger p-0">{{ $message }}</div>
+                        @enderror
+                        <hr class="mt-1">
+                        <div class="table-responsive mt-3">
+                            <table class="table">
+                                <thead class="bg-dark text-white">
+                                    <tr>
+                                        <th scope="col" class="text-center">Location</th>
+                                        <th scope="col" class="text-center">Model</th>
+                                        <th scope="col" class="text-center">BodyType</th>
+                                        <th scope="col" class="text-center">Additionalequipment</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="p-0 m-0">
+                                            <input type="text" placeholder="location" value="{{ old('location') }}"
+                                                class="col-sm-12 p-1 text-center  @error('location') is-invalid @enderror"
+                                                name="location">
+                                        </td>
+                                        <td class="p-0 m-0">
+                                            <select class="form-select" name="carmodel">
+                                                @foreach ($additives['carmodels'] as $carmodel)
+                                                    <option value="{{ $carmodel->id }}">{{ $carmodel->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </td>
+                                        <td class="p-0 m-0">
+                                            <select class="form-select" name="bodytype">
+                                                @foreach ($additives['bodytypes'] as $bodytype)
+                                                    <option value="{{ $bodytype->id }}">{{ $bodytype->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </td>
+                                        <td class="p-0 m-0">
+                                            <select class="form-select" name="equipment">
+                                                @foreach ($additives['equipments'] as $equipment)
+                                                    <option value="{{ $equipment->id }}">{{ $equipment->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <thead class="bg-dark text-white">
+                                    <tr>
+                                        <th scope="col" class="text-center">Engine</th>
+                                        <th scope="col" class="text-center">Country</th>
+                                        <th scope="col" class="text-center">Drive</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="p-0 m-0">
+                                            <select class="form-select" name="engine">
+                                                @foreach ($additives['engines'] as $engine)
+                                                    <option value="{{ $engine->id }}">{{ $engine->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </td>
+                                        <td class="p-0 m-0">
+                                            <select class="form-select" name="country">
+                                                @foreach ($additives['countrys'] as $country)
+                                                    <option value="{{ $country->id }}">{{ $country->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </td>
+                                        <td class="p-0 m-0">
+                                            <select class="form-select" name="drive">
+                                                @foreach ($additives['drives'] as $drive)
+                                                    <option value="{{ $drive->id }}">{{ $drive->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
+                </div>
                 </form>
             </div>
 

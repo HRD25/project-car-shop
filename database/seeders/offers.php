@@ -27,8 +27,24 @@ class offers extends Seeder
         DB::table('engines')->truncate();
         DB::table('steeringwheels')->truncate();
         DB::table('drives')->truncate();
+        DB::table('messages')->truncate();
 
         $faker = Factory::create();
+
+        // for ($i = 0; $i < 30; $i++) {
+        //     $idToUser = $faker->numberBetween(1, 4);
+        //     $idFromUser = $faker->numberBetween(1, 4);
+
+        //     if ($idToUser != $idFromUser) {
+        //         DB::table('messages')->insert([
+        //             'id_offer' => $faker->numberBetween(1, 30),
+        //             'idToUser' => $idToUser,
+        //             'idFromUser' => $idFromUser,
+        //             'messages' => $faker->text,
+        //             'is_read' => $faker->numberBetween(0, 1)
+        //         ]);
+        //     }
+        // }
 
         for ($i = 0; $i < 3; $i++) {
             DB::table('drives')->insert([
@@ -62,7 +78,7 @@ class offers extends Seeder
 
         for ($i = 0; $i < 8; $i++) {
             DB::table('carmodels')->insert([
-                'name' => $faker->randomElement(['a4b7', 'a4b8', 'a4b8', 'q3', 'q5', 'm2', 'm3', 'm4'])
+                'name' => $faker->randomElement(['audi', 'bmw', 'mercedes', 'ford', 'skoda', 'fiat', 'citroen', 'Porsche'])
             ]);
         }
 

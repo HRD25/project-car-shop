@@ -6,6 +6,9 @@ use App\Http\Controllers\MailController;
 use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\user\Controller as UserController;
 use Illuminate\Support\Facades\Route;
+use App\Events\Message;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,11 +42,13 @@ Route::group([
     Route::get('/addoffer', [UserController::class, 'addOffer'])->name('addOffer');
     Route::post('/addoffer/send', [UserController::class, 'sendOffer'])->name('sendOffer');
 
-    Route::get('/messages/offer/{idOffer}/{ToUser}', [UserController::class,'MessagesOffer'])->name('MessagesOffer');
+    /////
 
-    Route::post('messages/send/{id_offer}/{idToUser}', [UserController::class,'sendMessage'])->name('sendMessage');
+    Route::get('messages/{idOffer?}/{ToUser?}', [UserController::class, 'MessageTest'])->name('message');
+    Route::get('message/{id}', [UserController::class, 'getMessage']);
+    Route::post('message', [UserController::class, 'testSendMessage']);
 
-    Route::get('/messages', [UserController::class,'ShowMessages'])->name('ShowMessages');
+    /////
 });
 
 Route::group([

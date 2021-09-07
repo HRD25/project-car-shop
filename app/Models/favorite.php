@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
-
 class favorite extends Model
 {
     protected $table = 'favorites';
@@ -33,5 +32,9 @@ class favorite extends Model
     public function scopeDestroyFavorite(Builder $builder,int $id)
     {
         return favorite::where('id_offer',$id)->delete();
+    }
+
+    public function scopeMapFavorits(){
+        return favorite::where('id_user', Auth::id())->get();
     }
 }
