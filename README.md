@@ -2,6 +2,7 @@
 - PHP
 - Laravel
 - Javascript
+- Bootstrap
 - CSS
 - HTML
 - SASS
