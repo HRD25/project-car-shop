@@ -15,7 +15,7 @@ class CreateEnginesTable extends Migration
     {
         Schema::create('engines', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->index();
             $table->timestamps();
         });
     }

@@ -6,20 +6,36 @@
         <div class="card-body m-0 p-0">
             <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-indicators ">
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
-                        aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+                        class="active" aria-current="true" aria-label="Slide 1"></button>
                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
                         aria-label="Slide 2"></button>
                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
                         aria-label="Slide 3"></button>
                 </div>
                 <div class="carousel-inner">
-                    @foreach ($Sliders as $slider)
-                        <div class="carousel-item {{ $slider->status == 'action' ? 'active' : '' }}">
-                            <img class="img-fluid d-block " style="height: 390px;width:100%" src="{{ $slider->photo }}"
+                    @if (count($Sliders) > 0)
+                        @foreach ($Sliders as $slider)
+                            <div class="carousel-item {{ $slider->status == 'action' ? 'active' : '' }}">
+                                <img class="img-fluid d-block " style="height: 390px;width:100%" src="{{ $slider->photo }}"
+                                    alt="Photo car">
+                            </div>
+                        @endforeach
+                    @else
+                        <div class="carousel-item active">
+                            <img class="img-fluid d-block " style="height: 390px;width:100%"
+                                src="https://i.imgur.com/IVM81UQ.jpg" alt="Photo car">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="img-fluid d-block " style="height: 390px;width:100%"
+                                src="https://data.1freewallpapers.com/detail/post-apocalyptic-4k.jpg" alt="Photo car">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="img-fluid d-block " style="height: 390px;width:100%"
+                                src="https://www.imperiumtapet.com/public/uploads/preview/natura-hd-16jpg-331533828131ng9oooyd96.jpg"
                                 alt="Photo car">
                         </div>
-                    @endforeach
+                    @endif
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
                     data-bs-slide="prev">
@@ -49,7 +65,8 @@
                         <ul class="dropdown-menu p-0 m-0" aria-labelledby="dropdownMenuButton">
                             @foreach ($stats['bodytypes'] as $stat)
                                 <li class="text-start">
-                                    <p class="p-0 m-0"><input type="checkbox" name="bodytype" value="{{ $stat['name'] }}">
+                                    <p class="p-0 m-0"><input type="checkbox" name="bodytype"
+                                            value="{{ $stat['name'] }}">
                                         {{ $stat['name'] }}</p>
                                 </li>
                             @endforeach
@@ -61,7 +78,8 @@
                         <ul class="dropdown-menu p-0 m-0" aria-labelledby="dropdownMenuButton">
                             @foreach ($stats['carmodel'] as $stat)
                                 <li class="text-start">
-                                    <p class="p-0 m-0"><input type="checkbox" name="carmodel" value="{{ $stat['name'] }}">
+                                    <p class="p-0 m-0"><input type="checkbox" name="carmodel"
+                                            value="{{ $stat['name'] }}">
                                         {{ $stat['name'] }}</p>
                                 </li>
                             @endforeach
@@ -73,7 +91,8 @@
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             @foreach ($stats['fueltype'] as $stat)
                                 <li class="text-start">
-                                    <p class="p-0 m-0"><input type="checkbox" name="fueltype" value="{{ $stat['name'] }}">
+                                    <p class="p-0 m-0"><input type="checkbox" name="fueltype"
+                                            value="{{ $stat['name'] }}">
                                         {{ $stat['name'] }}</p>
                                 </li>
                             @endforeach
@@ -93,8 +112,10 @@
                         <ul class="dropdown-menu p-0" aria-labelledby="dropdownMenuButton">
                             @foreach ($stats['engine'] as $stat)
                                 <li class="text-start">
-                                    <p class="p-0 m-0"><input type="checkbox" name="engine" value="{{ $stat['name'] }}">
-                                        {{ $stat['name'] }}</p>
+                                    <p class="p-0 m-0"><input type="checkbox" name="engine"
+                                            value=" {{ $stat['name'] }}">
+                                        {{ $stat['name'] }}
+                                    </p>
                                 </li>
                             @endforeach
                         </ul>
@@ -106,12 +127,15 @@
                             <li>
                                 @foreach ($stats['steeringwheel'] as $stat)
                             <li class="text-start">
-                                <p class="p-0 m-0"><input type="checkbox" name="steeringwheel"
-                                        value="{{ $stat['name'] }}"> {{ $stat['name'] }}</p>
+                                <p class="p-0 m-0">
+                                    <input type="checkbox" name="steeringwheel"
+                                        value="@if (empty($_GET['steeringwheel'])){{ $stat['name'] }} @else{{ $_GET['steeringwheel'] }}" checked @endif>{{ $stat['name'] }}
+                                </p>
                             </li>
                             @endforeach
                             </li>
                         </ul>
+                        @if (!empty($_GET['steeringwheel'])){{$_GET['steeringwheel'] }} @endif
 
                         <button class="btn btn-secondary dropdown-toggle btn-sm rounded-pill" type="button"
                             id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
@@ -126,8 +150,9 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="col-sm-6 text-end">
-                        <input type="text" name="carname" class="col-sm-6 text-center rounded-pill" placeholder="Carname">
+                    <div class="col-sm-6 text-end typeAhead">
+                        <input type="text" name="carname" class="col-sm-6 text-center rounded-pill" placeholder="Carname"
+                            value="@if (!empty($_GET['carname'])){{ $_GET['carname'] }}@endif">
                         <button type="submit" class="btn-sm btn-primary text-white rounded-pill border-0">Search</button>
                     </div>
                 </div>
@@ -139,6 +164,11 @@
     <!-- Center -->
     <div class="container-fluid m-0 pt-0 p-3 pb-0">
         <div class="row p-1 pt-0">
+
+            @if (count($offers) < 1)
+                <h3 class="text-center mt-3">Sorry, Answers is 0, Try Again!</h3>
+                <hr class="mt-1">
+            @endif
             @foreach ($offers as $offer)
                 <div class="col-sm-2 p-1">
                     <div class="card">
@@ -229,17 +259,18 @@
                         </div>
                     </div>
                 </div>
-
             @endforeach
         </div>
     </div>
-    <div class="container-fluid bg-dark p-1 m-0 text-center">
-        <div class="row p-0 m-0">
-            <div class="col-sm-5"></div>
-            <div class="col-sm"> {{ $offers->links('vendor.pagination.bootstrap-4') }}</div>
-            <div class="col-sm-5"></div>
+    @if (count($offers) > 0)
+        <div class="container-fluid bg-dark p-1 m-0 text-center">
+            <div class="row p-0 m-0">
+                <div class="col-sm-5"></div>
+                <div class="col-sm"> {{ $offers->links('vendor.pagination.bootstrap-4') }}</div>
+                <div class="col-sm-5"></div>
+            </div>
         </div>
-    </div>
+    @endif
 
     </div>
     <!-- End Center -->

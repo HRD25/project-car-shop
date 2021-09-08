@@ -142,8 +142,13 @@
                 <div class="card">
                     <div class="card-body p-0 ">
                         <div class="text-center">
-                            <img src="{{ asset('/storage/' . $offer->Users->avatar) }}" class="img-fluid rounded-circle"
-                                style="width: 50%; height:50%;">
+                            @if ($offer->Users->avatar)
+                                <img src="{{ asset('/storage/' . $offer->Users->avatar) }}"
+                                    class="img-fluid rounded-circle" style="width: 50%; height:50%;">
+                            @else
+                                <img src="https://packback.pl/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png"
+                                    class="img-fluid rounded-circle p-0 m-0" style="height:50%; width:50%;">
+                            @endif
                         </div>
                         <hr class="mb-1 mt-2">
                         <div class="text-center m-0 p-0 ">
@@ -192,7 +197,7 @@
                     </form>
                     <div class="phoneNumber" id="phoneNumber">
                         <div class="bg-dark">
-                            <span>600-100-100</span>
+                            <span>{{ $offer->Users->phoneNumber }}</span>
                         </div>
                     </div>
                 </div>

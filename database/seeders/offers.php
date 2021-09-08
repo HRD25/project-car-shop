@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Faker\Factory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class offers extends Seeder
 {
@@ -103,6 +104,20 @@ class offers extends Seeder
         for ($i = 0; $i < 8; $i++) {
             DB::table('equipments')->insert([
                 'name' => $faker->randomElement(['elektryczne-szyby', 'podgrzewane-siedzenie', 'poduszka-powietrzna', 'kamera-parkowania-tyl', 'skora', 'automatyczny-pilot', 'ABS', 'Controla trakcji pojazdu'])
+            ]);
+        }
+
+        for ($i = 0; $i < 3; $i++) {
+            DB::table('users')->insert([
+                'name' => $faker->name,
+                'email' => $faker->email,
+                'role' => 'user',
+                'avatar' => '',
+                'gender' => $faker->randomElement(['women', 'men']),
+                'phoneNumber' => $faker->phoneNumber,
+                'password' => Hash::make('password'),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
             ]);
         }
 

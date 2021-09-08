@@ -234,7 +234,7 @@
                                                 @endforeach
                                             </select>
                                         </td>
-                                        <td class="p-0 m-0">
+                                        <td class="p-0 m-0 border-0">
                                             <select class="form-select" name="equipment">
                                                 @foreach ($additives['equipments'] as $equipment)
                                                     <option value="{{ $equipment->id }}">{{ $equipment->name }}

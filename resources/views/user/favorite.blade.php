@@ -18,7 +18,6 @@
                             <div class="col-sm-6 m-0 p-0">
                                 <h1 class="text-center">Favorits List
                                 </h1>
-
                             </div>
                             <div class="col-sm text-end mt-2 m-0 p-0 pe-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"

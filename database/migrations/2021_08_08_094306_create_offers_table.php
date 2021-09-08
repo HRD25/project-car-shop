@@ -15,21 +15,21 @@ class CreateOffersTable extends Migration
     {
         Schema::create('offers', function (Blueprint $table) {
             $table->id();
-            $table->string('carname'); //nazwa samochodu
-            $table->integer('id_carmodel'); //model samochodu
-            $table->integer('id_bodytype'); //rodzaj nadwozia
-            $table->string('id_fueltype'); //rodzaj paliwa
-            $table->string('course'); //przebieg
-            $table->year('yearproduction'); //rok produkcji
-            $table->string('id_vehiclestatus'); //status pojazdu
-            $table->integer('id_engine'); //silnik
-            $table->string('id_drive'); //napęd
+            $table->string('carname')->index(); //nazwa samochodu
+            $table->integer('id_carmodel')->index(); //model samochodu
+            $table->integer('id_bodytype')->index(); //rodzaj nadwozia
+            $table->string('id_fueltype')->index(); //rodzaj paliwa
+            $table->string('course')->index(); //przebieg
+            $table->year('yearproduction')->index(); //rok produkcji
+            $table->string('id_vehiclestatus')->index(); //status pojazdu
+            $table->integer('id_engine')->index(); //silnik
+            $table->string('id_drive')->index(); //napęd
             $table->integer('id_country'); //kraj pochodzenia
-            $table->integer('id_equipment'); //dodatkowe wyposazenie
-            $table->string('id_steeringwheel'); //kierownica
+            $table->integer('id_equipment')->index(); //dodatkowe wyposazenie
+            $table->string('id_steeringwheel')->index(); //kierownica
             $table->string('location'); //lokalizacja
             $table->text('description'); //Opis
-            $table->integer('price'); // cena
+            $table->integer('price')->index(); // cena
             $table->string('photo'); //zdjecia
             $table->integer('id_user'); //id uzytkownika
             $table->timestamps();

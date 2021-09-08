@@ -15,7 +15,7 @@ class CreateSteeringwheelsTable extends Migration
     {
         Schema::create('steeringwheels', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->index();
             $table->timestamps();
         });
     }
